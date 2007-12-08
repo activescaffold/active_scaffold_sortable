@@ -4,13 +4,22 @@ module ActiveScaffold::Actions
     def self.included(base)
       base.helper_method :sort_params
       
-      configure_for_sortable(base.active_scaffold_config)
+      configure_for_sortable(base)
     end
     
-    def self.configure_for_sortable(config)
+    def self.configure_for_sortable(base)
+      config = base.active_scaffold_config
       config.list.per_page = 9999 # disable pagination
       
-      config.inherited_view_paths << "../../vendor/plugins/#{sortable_plugin_name}/views"
+      sortable_plugin_path = File.join(RAILS_ROOT, 'vendor', 'plugins', sortable_plugin_name, 'views')
+      
+      if base.respond_to?(:generic_view_paths) && ! base.generic_view_paths.empty?
+        base.generic_view_paths.insert(0, sortable_plugin_path)
+        puts base.generic_view_paths.inspect
+      else  
+        config.inherited_view_paths << sortable_plugin_path
+      end
+      
       
       # turn sorting off
       sortable_column = config.sortable.column.to_sym
@@ -51,7 +60,6 @@ module ActiveScaffold::Actions
         "#{active_scaffold_tbody_id}", 
         {
           :tag => "tr", 
-          :scroll => true, 
           :url => {:action => :reorder } 
         }
       ]
