@@ -4,7 +4,7 @@ module ActiveScaffold::Config
       
     end
     
-    attr_reader :column
+    attr_writer :column
     
     def column
       @column ||= "position"
