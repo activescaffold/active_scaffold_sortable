@@ -1,5 +1,6 @@
 require "actions/sortable.rb"
 require "config/sortable.rb"
+require "extensions/resources.rb"
 
 
 # install files
