@@ -89,7 +89,7 @@ h2. Contributing
 
 Fork, hack, push, and request a pull:
 
-http://gitorious.org/projects/active_scaffold_sortable
+git://github.com/timcharper/active_scaffold_sortable.git
 
 h2. Author
 
