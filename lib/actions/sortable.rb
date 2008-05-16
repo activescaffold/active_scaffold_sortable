@@ -60,7 +60,8 @@ module ActiveScaffold::Actions
         "#{active_scaffold_tbody_id}", 
         {
           :tag => "tr", 
-          :url => {:action => :reorder } 
+          :url => {:action => :reorder },
+          :format => active_scaffold_config.sortable.format
         }
       ]
     end
