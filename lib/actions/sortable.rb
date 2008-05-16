@@ -45,9 +45,12 @@ module ActiveScaffold::Actions
     end
     
     def reorder
+      m = active_scaffold_config.model
+      column_name = m.connection.quote_column_name(active_scaffold_config.sortable.column)
+      
       id_list = params[active_scaffold_tbody_id].map{|i| i.gsub(/[^0-9]/, '').to_i}
-      id_list.each_index{|i|
-        active_scaffold_config.model.update_all("#{active_scaffold_config.sortable.column}=#{i.to_i}", ["id = ?", id_list[i]])
+      id_list.each_index{|index|
+        m.update_all(["#{column_name} = ?", index], ["`id` = ?", id_list[index]])
       }
       render :update do |page|
         page << "ActiveScaffold.stripe('#{active_scaffold_tbody_id}');"
