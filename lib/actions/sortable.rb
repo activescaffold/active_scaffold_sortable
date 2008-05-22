@@ -15,7 +15,6 @@ module ActiveScaffold::Actions
       
       if base.respond_to?(:generic_view_paths) && ! base.generic_view_paths.empty?
         base.generic_view_paths.insert(0, sortable_plugin_path)
-        puts base.generic_view_paths.inspect
       else  
         config.inherited_view_paths << sortable_plugin_path
       end
