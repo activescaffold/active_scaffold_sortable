@@ -10,10 +10,10 @@ You'll need at least ActiveScaffold 1.1.1 to use this, and probably rails 2.0
 
 <pre>
 # rails 2.1
-script/plugin install git://github.com/timcharper/active_scaffold_sortable.git
+script/plugin install git://github.com/activescaffold/active_scaffold_sortable.git
 
 # rails 2.0
-git clone git://github.com/timcharper/active_scaffold_sortable.git vendor/plugins/active_scaffold_sortable
+git clone git://github.com/activescaffold/active_scaffold_sortable.git vendor/plugins/active_scaffold_sortable
 </pre>
 
 
