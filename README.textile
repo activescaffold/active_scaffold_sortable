@@ -67,7 +67,11 @@ and layout
 
 h4. Step 3
 
-Hah!  There is no step 3!  Unless, of course, something goes wrong.
+If you're using restful routes, append this to your route in routes.rb:
+
+<pre>
+  map.resources :tasks, :active_scaffold => true, :active_scaffold_sortable => true
+</pre>
 
 h2. Notice:
 
