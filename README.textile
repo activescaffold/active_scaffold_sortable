@@ -83,13 +83,13 @@ end
 
 h2. Support
 
-If you have issues installing the plugin, post to the Active Scaffold list. 
+If you have issues installing the plugin, search / post to the "Active Scaffold ":http://groups.google.com/group/activescaffold forum or "Create an issue":http://code.google.com/p/activescaffold/issues/list
 
 h2. Contributing
 
 Fork, hack, push, and request a pull:
 
-git://github.com/timcharper/active_scaffold_sortable.git
+http://github.com/activescaffold/active_scaffold_sortable/
 
 h2. Author
 
