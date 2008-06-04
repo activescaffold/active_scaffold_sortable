@@ -21,7 +21,7 @@ h2. Usage
 
 h4. Step 1
 
-Create a model with a column called "position":
+Create a model with a column named 'position':
 
 <pre>
 # app/models/entry.rb
