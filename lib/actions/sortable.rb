@@ -49,7 +49,7 @@ module ActiveScaffold::Actions
       
       id_list = params[active_scaffold_tbody_id].map{|i| i.gsub(/[^0-9]/, '').to_i}
       id_list.each_index{|index|
-        m.update_all(["#{column_name} = ?", index], ["id = ?", id_list[index]])
+        m.update_all(["#{column_name} = ?", index+1], ["id = ?", id_list[index]])
       }
       render :update do |page|
         page << "ActiveScaffold.stripe('#{active_scaffold_tbody_id}');"
