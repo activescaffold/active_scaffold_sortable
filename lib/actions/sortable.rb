@@ -24,9 +24,9 @@ module ActiveScaffold::Actions
       sortable_column = config.sortable.column.to_sym
       force_sort_on(sortable_column, config)
       
-      [config.list, config.update, config.create].each{|ucl|
-        ucl.columns.exclude sortable_column
-      }
+      [:list, :update, :create].each do |action_name|
+        config.send(action_name).columns.exclude(sortable_column) if config.actions.include?(action_name)
+      end
       
     end
     
