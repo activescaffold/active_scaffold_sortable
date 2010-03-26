@@ -1,6 +1,6 @@
 h1. Drag-Drop Sortable for ActiveScaffold
 
-Currently, this plugin is not compatible with rails 2.1, due to some outstanding compatibility issues with ActiveScaffold.
+Currently, this plugin is compatible with rails 2.3 and rails-2.3 and master branches of ActiveScaffold.
 
 h2. Overview
 
@@ -8,12 +8,11 @@ This plugin enables those slicker-than-snot ajax drag-drop sortable elements on 
 
 h2. Installation
 
-You'll need at least ActiveScaffold 1.1.1 to use this, and probably rails 2.0
+You'll need at least ActiveScaffold rails-2.3 branch to use this, and rails 2.3.x
 
 
 <pre>
-# rails 2.0
-git clone git://github.com/activescaffold/active_scaffold_sortable.git vendor/plugins/active_scaffold_sortable
+script/plugin install clone git://github.com/activescaffold/active_scaffold_sortable.git
 </pre>
 
 h2. Usage
@@ -44,11 +43,15 @@ Create your scaffold controller
 class EntryController < ApplicationController
   active_scaffold :entries do |config|
     config.actions << :sortable
+    config.sortable.column = :position
   end
 end
 </pre>
 
-and layout
+
+h4. Step 3
+
+Create your layout
 
 <pre>
 # app/views/layouts/application.rhtml
@@ -64,7 +67,7 @@ and layout
 </html>
 </pre>
 
-h4. Step 3
+h4. Step 4
 
 If you're using restful routes, append this to your route in routes.rb:
 
@@ -74,19 +77,11 @@ If you're using restful routes, append this to your route in routes.rb:
 
 h2. Notice:
 
-If you'd like to use a different column name, put this line in your controller:
-
-<pre>
-...
-active_scaffold :entries do |config|
-  config.sortable.column = :position
-end
-...
-</pre>
+If you are using acts_as_list plugin you can skip the step 3
 
 h2. Support
 
-If you have issues installing the plugin, search / post to the "Active Scaffold ":http://groups.google.com/group/activescaffold forum or "Create an issue":http://code.google.com/p/activescaffold/issues/list
+If you have issues installing the plugin, search / post to the "Active Scaffold":http://groups.google.com/group/activescaffold forum or "Create an issue":http://github.com/activescaffold/active_scaffold_sortable/issues
 
 h2. Contributing
 
@@ -99,4 +94,5 @@ h2. Author
 Contact me:
 <pre>
   Tim Harper - irb(main):001:0> ( 'tim_see_harperATgmail._see_om'.gsub('_see_', 'c').gsub('AT', '@') )
+  Sergio Cambra - irb(main):001:0> ( 'sergioATentrecables._see_om'.gsub('_see_', 'c').gsub('AT', '@') )
 </pre>
