@@ -1,0 +1,2 @@
+page << render(:super)
+page.sortable(*sort_params) if controller.send :successful?

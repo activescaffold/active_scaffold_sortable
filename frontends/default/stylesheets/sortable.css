@@ -1,0 +1,6 @@
+.sortable {
+  cursor: move;
+}
+.sortable .in_place_editor_field {
+  cursor: pointer;
+}
