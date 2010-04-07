@@ -18,30 +18,20 @@ require 'active_support'
 require 'initializer'
 ActionController::Base::logger = ActiveSupport::BufferedLogger.new(Tempfile.new('log').path)
 
-RAILS_ROOT = File.join(File.dirname(__FILE__), '..')
+RAILS_ROOT = File.join(File.dirname(__FILE__), '../../../..')
 Rails.configuration = Rails::Configuration.new
 
 require 'shoulda'
 require 'shoulda/rails'
-require 'factory_girl'
 require 'mocha'
 begin
   require 'redgreen'
 rescue LoadError
 end
-Rails.configuration.after_initialize_blocks.each do |block|
-  block.call
-end
 
 ActiveSupport::Dependencies.load_paths = %w(test/models test/controllers lib ../active_scaffold/lib).map {|dir| File.dirname(__FILE__) + "/../#{dir}"}
 $:.unshift *ActiveSupport::Dependencies.load_paths
 
-module Rails
-  def self.root
-    File.join(RAILS_ROOT, '../../..')
-  end
-end
-require File.join(File.dirname(__FILE__), '../../active_scaffold/shoulda_macros/macros')
 require File.join(File.dirname(__FILE__), '../../active_scaffold/environment')
 require 'sortable'
 
