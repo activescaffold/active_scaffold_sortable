@@ -4,7 +4,7 @@ module ActiveScaffold::Helpers
       options = {
         :tag => 'tr', 
         :url => {:action => :reorder, :controller => @controller.controller_name },
-        :format => '/^[^_\-](?:[A-Za-z0-9\-\_]*)[-](.*)-row$/',
+        :format => '/^[^_-](?:[A-Za-z0-9_-]*)-(.*)-row$/',
         :with => "Sortable.serialize(#{active_scaffold_tbody_id.to_json})"
       }
       additional_params = [:parent_controller, :eid, :controller].reject {|param| params[param].blank?}

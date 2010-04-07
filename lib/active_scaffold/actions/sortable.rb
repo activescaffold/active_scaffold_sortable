@@ -25,8 +25,7 @@ module ActiveScaffold::Actions
       model = active_scaffold_config.model
       column_name = active_scaffold_config.sortable.column.name
 
-      id_list = params[active_scaffold_tbody_id].map{|id| id.gsub(/[^0-9]/, '').to_i}
-      id_list.each_with_index do |id, index|
+      params[active_scaffold_tbody_id].each_with_index do |id, index|
         model.update_all({column_name => index + 1}, {model.primary_key => id})
       end
     end
