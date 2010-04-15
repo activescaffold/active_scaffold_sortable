@@ -23,6 +23,8 @@ class ConfigTest < Test::Unit::TestCase
     assert !AutoModelsController.active_scaffold_config.update.columns.include?(:position)
     assert !AutoModelsController.active_scaffold_config.create.columns.include?(:position)
     assert !AutoModelsController.active_scaffold_config.show.columns.include?(:position)
+    assert !AutoModelsController.active_scaffold_config.subform.columns.include?(:position)
+    assert !AutoModelsController.active_scaffold_config.search.columns.include?(:position)
 
     assert !SortableModelsController.active_scaffold_config.list.columns.include?(:name)
     assert !SortableModelsController.active_scaffold_config.update.columns.include?(:name)

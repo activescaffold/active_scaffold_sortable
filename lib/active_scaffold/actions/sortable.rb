@@ -11,8 +11,9 @@ module ActiveScaffold::Actions
         config.columns.each {|c| c.sort = false unless c.name == sortable_column }
         config.list.sorting = { sortable_column => "asc" }
       
-        [:show, :list, :update, :create].each do |action_name|
-          config.send(action_name).columns.exclude(sortable_column) if config.actions.include?(action_name)
+        config.actions.each do |action_name|
+          action = config.send(action_name)
+          action.columns.exclude(sortable_column) if action.respond_to? :columns
         end
 
         dir = File.join(Rails.root, 'vendor', 'plugins', ::Sortable.plugin_name, 'frontends')
