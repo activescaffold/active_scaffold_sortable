@@ -1,6 +1,6 @@
 page << render(:super)
 if controller.send :successful?
-  page[active_scaffold_tbody_id].insert element_row_id(:action => :list, :id => @record.id)
+  page << "$('#{active_scaffold_tbody_id}').insert($('#{element_row_id(:action => :list, :id => @record.id)}'))" # move to bottom
   page << "ActiveScaffold.stripe('#{active_scaffold_tbody_id}');"
   page.sortable(*sort_params)
 end
