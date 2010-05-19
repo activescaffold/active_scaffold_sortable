@@ -89,6 +89,10 @@ Fork, hack, push, and request a pull:
 
 http://github.com/activescaffold/active_scaffold_sortable/
 
+h2. License
+
+Released under the MIT license (included).
+
 h2. Author
 
 Contact me:
