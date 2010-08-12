@@ -3,7 +3,7 @@ module ActiveScaffold::Helpers
     def sort_params
       options = {
         :tag => 'tr', 
-        :url => {:action => :reorder, :controller => @controller.controller_name },
+        :url => {:action => :reorder, :controller => controller_name },
         :format => '/^[^_-](?:[A-Za-z0-9_-]*)-(.*)-row$/',
         :with => "Sortable.serialize(#{active_scaffold_tbody_id.to_json})"
       }
