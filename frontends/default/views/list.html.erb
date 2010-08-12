@@ -1,2 +1,4 @@
 <%= render :super %>
+<% if ActiveScaffold.js_framework == :prototype %>
 <%= sortable_element *sort_params %>
+<% end %>
