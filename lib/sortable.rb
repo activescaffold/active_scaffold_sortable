@@ -5,4 +5,4 @@ module Sortable
 end
 ActiveScaffold::Config::Core.send :include, Sortable::Core
 ActiveScaffold::Helpers::ViewHelpers.send :include, Sortable::ViewHelpers
-ActionController::Resources::Resource::ACTIVE_SCAFFOLD_ROUTING[:collection][:reorder] = :post
+ActionDispatch::Routing::ACTIVE_SCAFFOLD_CORE_ROUTING[:collection][:reorder] = :post
