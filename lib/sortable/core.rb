@@ -5,6 +5,6 @@ module Sortable::Core
 
   def initialize_with_sortable(model_id)
     initialize_without_sortable(model_id)
-    self.actions << :sortable if model.instance_methods.include? 'acts_as_list_class'
+    self.actions << :sortable if !(model.instance_methods & ['acts_as_list_class', 'nested_set_scope']).empty?
   end
 end
