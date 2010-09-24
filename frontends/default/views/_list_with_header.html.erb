@@ -2,13 +2,7 @@
 <% if ActiveScaffold.js_framework == :prototype %>
 <%= sortable_element *sort_params %>
 <% elsif ActiveScaffold.js_framework == :jquery %>
-  <%= javascript_tag "$('##{sort_params[0]}').sortable({
-   update: function(event, ui) {
-     var url = '#{controller_name}/reorder?',
-     params = {#{params[:eid].blank? ? '' : 'eid:\'' + params[:eid] + '\','}
-              authenticity_token: $('meta[name=csrf-param]').attr('content')};  
-     url += $(this).sortable('serialize',{key: encodeURIComponent($(this).attr('id') + '[]'), expression:/^[^_-](?:[A-Za-z0-9_-]*)-(.*)-row$/});
-     $.post(url.append_params(params)); 
-   }
-   });" %>
+  <% reorder_params = {}
+     reorder_params[:eid] = params[:eid] unless params[:eid].blank?  %>
+       <%= javascript_tag "ActiveScaffold.sortable('#{sort_params[0]}', #{controller_name.to_json}, #{reorder_params.to_json});" %>
 <% end %>
