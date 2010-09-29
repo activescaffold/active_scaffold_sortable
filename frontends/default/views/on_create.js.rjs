@@ -1,4 +1,4 @@
-page << render(:super)
+page << render(:super, :locals => {:insert_at => :bottom})
 if controller.send :successful?
   if ActiveScaffold.js_framework == :prototype
     page.sortable(*sort_params)
