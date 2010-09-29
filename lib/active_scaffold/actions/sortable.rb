@@ -29,16 +29,7 @@ module ActiveScaffold::Actions
         reorder_children_in_tree(model)
       else
         if model.singleton_methods.include?('has_ancestry')
-          first_record = model.find(params[active_scaffold_tbody_id].first)
-          unless first_record.nil?
-            records = first_record.is_root? ? model.roots: first_record.parent.children
-            column_name = active_scaffold_config.sortable.column.name
-            params[active_scaffold_tbody_id].each_with_index do |id, index|
-              records.update_all({column_name => index + 1}, {model.primary_key => id})
-            end
-          else
-            Rails.logger.info("Failed to find first record to reorder")
-          end
+          reorder_ancestry_tree(model) 
         else
           column_name = active_scaffold_config.sortable.column.name
           params[active_scaffold_tbody_id].each_with_index do |id, index|
@@ -51,6 +42,19 @@ module ActiveScaffold::Actions
     protected
     def sortable_authorized?
       authorized_for?(:action => :update)
+    end
+    
+    def reorder_ancestry_tree(model)
+      first_record = model.find(params[active_scaffold_tbody_id].first)
+      unless first_record.nil?
+        records = first_record.is_root? ? model.roots: first_record.parent.children
+        column_name = active_scaffold_config.sortable.column.name
+        params[active_scaffold_tbody_id].each_with_index do |id, index|
+          records.update_all({column_name => index + 1}, {model.primary_key => id})
+        end
+      else
+        Rails.logger.info("Failed to find first record to reorder")
+      end
     end
     
     def reorder_children_in_tree(model)
