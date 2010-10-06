@@ -28,7 +28,7 @@ module ActiveScaffold::Actions
       if model.instance_methods.include? 'nested_set_scope'
         reorder_children_in_tree(model)
       else
-        if model.singleton_methods.include?('has_ancestry')
+        if model.respond_to? :ancestry_column
           reorder_ancestry_tree(model) 
         else
           reorder_simple_list(model)
