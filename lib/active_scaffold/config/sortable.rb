@@ -6,6 +6,11 @@ module ActiveScaffold::Config
       
       self.column = core_config.model.new.position_column if @core.model.instance_methods.include? 'acts_as_list_class'
       self.column = core_config.model.new.left_column_name if @core.model.instance_methods.include? 'nested_set_scope'
+      if self.column.nil?
+        raise "ActiveScaffoldSortable: Missing sortable attribute '#{core_config.model.new.position_column}' in model '#{core_config.model.to_s}'" if @core.model.instance_methods.include? 'acts_as_list_class'
+        raise "ActiveScaffoldSortable: Missing sortable attribute '#{core_config.model.new.left_column_name}' in model '#{core_config.model.to_s}'" if @core.model.instance_methods.include? 'nested_set_scope'
+      end
+
     end
 
     self.crud_type = :update
