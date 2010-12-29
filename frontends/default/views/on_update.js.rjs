@@ -1,10 +1,11 @@
 page << render(:super)
-if controller.send :successful?
+# if we are currently editing a nested belongs_to association do not do any sorting stuff
+unless nested? && nested.belongs_to?
   if ActiveScaffold.js_framework == :prototype
     page.sortable(*sort_params)
   elsif ActiveScaffold.js_framework == :jquery
     reorder_params = {}
     reorder_params[:eid] = params[:eid] unless params[:eid].blank?
     page << "ActiveScaffold.sortable('#{sort_params[0]}', #{controller_name.to_json}, #{reorder_params.to_json});"
-  end
+  end if controller.send :successful?
 end
