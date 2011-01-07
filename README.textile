@@ -1,6 +1,6 @@
 h1. Drag-Drop Sortable for ActiveScaffold
 
-Currently, this plugin is compatible with rails 2.3 and rails-2.3 and master branches of ActiveScaffold.
+Currently, this plugin is compatible with rails 3.x and master branches of vhochstein/ActiveScaffold.
 
 h2. Overview
 
@@ -8,11 +8,11 @@ This plugin enables those slicker-than-snot ajax drag-drop sortable elements on 
 
 h2. Installation
 
-You'll need at least ActiveScaffold rails-2.3 branch to use this, and rails 2.3.x
+You'll need at least vhochstein/ActiveScaffold to use this, and rails 3.x
 
 
 <pre>
-script/plugin install clone git://github.com/activescaffold/active_scaffold_sortable.git
+script/plugin install clone git://github.com/vhochstein/active_scaffold_sortable.git
 </pre>
 
 h2. Usage
@@ -67,27 +67,19 @@ Create your layout
 </html>
 </pre>
 
-h4. Step 4
-
-If you're using restful routes, append this to your route in routes.rb:
-
-<pre>
-  map.resources :tasks, :active_scaffold => true, :active_scaffold_sortable => true
-</pre>
-
 h2. Notice:
 
 If you are using acts_as_list plugin you can skip the step 3
 
 h2. Support
 
-If you have issues installing the plugin, search / post to the "Active Scaffold":http://groups.google.com/group/activescaffold forum or "Create an issue":http://github.com/activescaffold/active_scaffold_sortable/issues
+If you have issues installing the plugin, search / post to the "Active Scaffold":http://groups.google.com/group/activescaffold forum or "Create an issue":http://github.com/vhochstein/active_scaffold_sortable/issues
 
 h2. Contributing
 
 Fork, hack, push, and request a pull:
 
-http://github.com/activescaffold/active_scaffold_sortable/
+http://github.com/vhochstein/active_scaffold_sortable/
 
 h2. License
 
