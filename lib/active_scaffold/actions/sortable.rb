@@ -25,7 +25,7 @@ module ActiveScaffold::Actions
     def reorder
       model = active_scaffold_config.model
       
-      if model.instance_methods.include? 'nested_set_scope'
+      unless (model.instance_methods & [:nested_set_scope, 'nested_set_scope']).empty?
         reorder_children_in_tree(model)
       else
         if model.respond_to? :ancestry_column
