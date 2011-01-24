@@ -1,11 +1,9 @@
-require 'sortable'
+ACTIVE_SCAFFOLD_SORTABLE_PLUGIN = true
 
-##
-## Run the install assets script, too, just to make sure
-## But at least rescue the action in production
-##
+require 'active_scaffold_sortable'
+
 begin
-  require File.dirname(__FILE__) + '/install_assets'
+  ActiveScaffoldAssets.copy_to_public(ActiveScaffoldSortable.root)
 rescue
   raise $! unless Rails.env == 'production'
 end

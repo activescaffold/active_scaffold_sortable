@@ -16,7 +16,7 @@ module ActiveScaffold::Actions
           action.columns.exclude(sortable_column) if action.respond_to? :columns
         end
 
-        dir = File.join(Rails.root, 'vendor', 'plugins', ::Sortable.plugin_name, 'frontends')
+        dir = File.join(ActiveScaffold::Config::Sortable.plugin_directory, 'frontends')
         base.add_active_scaffold_path File.join(dir, frontend, 'views') if config.frontend.to_sym != :default
         base.add_active_scaffold_path File.join(dir, 'default', 'views')
       end

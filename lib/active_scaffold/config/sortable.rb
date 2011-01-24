@@ -13,6 +13,9 @@ module ActiveScaffold::Config
 
     end
 
+    cattr_accessor :plugin_directory
+    @@plugin_directory = File.expand_path(__FILE__).match(%{(^.*)/lib/active_scaffold/config/sortable.rb})[1]
+
     self.crud_type = :update
     
     attr_reader :column
