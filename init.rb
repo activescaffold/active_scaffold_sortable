@@ -1,4 +1,4 @@
-ACTIVE_SCAFFOLD_SORTABLE_PLUGIN = true
+ACTIVE_SCAFFOLD_SORTABLE_INSTALLED = :plugin
 
 require 'active_scaffold_sortable'
 

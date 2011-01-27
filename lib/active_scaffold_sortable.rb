@@ -1,7 +1,7 @@
 require "#{File.dirname(__FILE__)}/active_scaffold_sortable/config/core.rb"
-require "#{File.dirname(__FILE__)}/active_scaffold/config/sortable.rb"
-require "#{File.dirname(__FILE__)}/active_scaffold/actions/sortable.rb"
-require "#{File.dirname(__FILE__)}/active_scaffold/helpers/sortable_helpers.rb"
+require "#{File.dirname(__FILE__)}/active_scaffold_sortable/core.rb"
+require "#{File.dirname(__FILE__)}/active_scaffold_sortable/view_helpers.rb"
+
 
 module ActiveScaffoldSortable
   def self.root
@@ -9,17 +9,31 @@ module ActiveScaffoldSortable
   end
 end
 
+module ActiveScaffold
+  module Actions
+    ActiveScaffold.autoload_subdir('actions', self, File.dirname(__FILE__))
+  end
+
+  module Config
+    ActiveScaffold.autoload_subdir('config', self, File.dirname(__FILE__))
+  end
+
+  module Helpers
+    ActiveScaffold.autoload_subdir('helpers', self, File.dirname(__FILE__))
+  end
+end
+
 ActiveScaffold::Config::Core.send :include, ActiveScaffoldSortable::Core
-ActiveScaffold::Helpers::ViewHelpers.send :include, ActiveScaffoldSortable::ViewHelpers
+ActionView::Base.send(:include, ActiveScaffoldSortable::ViewHelpers)
 
 ##
 ## Run the install assets script, too, just to make sure
 ## But at least rescue the action in production
 ##
-Rails::Application.initializer("active_scaffold_sortable.install_assets") do
+Rails::Application.initializer("active_scaffold_sortable.install_assets", :after => "active_scaffold.install_assets") do
   begin
     ActiveScaffoldAssets.copy_to_public(ActiveScaffoldSortable.root)
   rescue
     raise $! unless Rails.env == 'production'
   end
-end unless defined?(ACTIVE_SCAFFOLD_SORTABLE_PLUGIN) && ACTIVE_SCAFFOLD_SORTABLE_PLUGIN == true
+end unless defined?(ACTIVE_SCAFFOLD_SORTABLE_INSTALLED) && ACTIVE_SCAFFOLD_SORTABLE_INSTALLED == :plugin
