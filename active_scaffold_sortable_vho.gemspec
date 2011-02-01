@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{active_scaffold_sortable_vho}
-  s.version = "3.0.0"
+  s.version = "3.0.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Volker Hochstein"]
-  s.date = %q{2011-01-27}
+  s.date = %q{2011-02-01}
   s.description = %q{Sort Tree or List Structures by Drag n Drop}
   s.email = %q{activescaffold@googlegroups.com}
   s.extra_rdoc_files = [
@@ -21,6 +21,7 @@ Gem::Specification.new do |s|
     "LICENSE.txt",
     "README.textile",
     "Rakefile",
+    "active_scaffold_sortable_vho.gemspec",
     "frontends/default/stylesheets/sortable.css",
     "frontends/default/views/_list_with_header.html.erb",
     "frontends/default/views/on_create.js.rjs",
