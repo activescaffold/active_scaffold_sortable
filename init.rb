@@ -1,5 +1,3 @@
-ACTIVE_SCAFFOLD_SORTABLE_INSTALLED = :plugin
-
 require 'active_scaffold_sortable'
 
 begin
