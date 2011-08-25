@@ -5,5 +5,5 @@
   <% reorder_params = {}
      reorder_params[:eid] = params[:eid] unless params[:eid].blank?
      options = {:update => true, :action => 'reorder'} %>
-     <%= javascript_tag "ActiveScaffold.sortable('#{sort_params[0]}', #{controller_path.to_json}, #{options.to_json}, #{reorder_params.to_json});" %>
+     <%= javascript_tag "ActiveScaffold.sortable('#{sort_params[0]}', #{url_for(:controller => controller_name).to_json}, #{options.to_json}, #{reorder_params.to_json});" %>
 <% end %>
