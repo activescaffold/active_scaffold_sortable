@@ -1,2 +1,0 @@
-ACTIVE_SCAFFOLD_SORTABLE_GEM = true
-require 'active_scaffold_sortable'

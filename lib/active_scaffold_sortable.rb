@@ -36,4 +36,4 @@ Rails::Application.initializer("active_scaffold_sortable.install_assets", :after
   rescue
     raise $! unless Rails.env == 'production'
   end
-end if defined?(ACTIVE_SCAFFOLD_SORTABLE_GEM)
+end
