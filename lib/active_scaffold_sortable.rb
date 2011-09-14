@@ -1,6 +1,5 @@
 require "active_scaffold_sortable/config/core.rb"
 require "active_scaffold_sortable/core.rb"
-require "active_scaffold_sortable/view_helpers.rb"
 
 
 module ActiveScaffoldSortable
@@ -24,4 +23,3 @@ module ActiveScaffold
 end
 
 ActiveScaffold::Config::Core.send :include, ActiveScaffoldSortable::Core
-ActionView::Base.send(:include, ActiveScaffoldSortable::ViewHelpers)
