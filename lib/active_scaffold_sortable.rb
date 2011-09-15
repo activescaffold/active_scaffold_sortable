@@ -23,3 +23,4 @@ module ActiveScaffold
 end
 
 ActiveScaffold::Config::Core.send :include, ActiveScaffoldSortable::Core
+ActiveScaffold.stylesheets << 'active_scaffold_sortable'
