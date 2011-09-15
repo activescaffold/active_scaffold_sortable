@@ -1,6 +1,6 @@
 require "active_scaffold_sortable/config/core.rb"
 require "active_scaffold_sortable/core.rb"
-
+require "active_scaffold_sortable/engine.rb"
 
 module ActiveScaffoldSortable
   def self.root
