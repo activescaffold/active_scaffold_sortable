@@ -9,7 +9,7 @@ unless nested_singular_association?
     reorder_params = {}
     reorder_params[:eid] = params[:eid] unless params[:eid].blank?
 %>
-    <%= "ActiveScaffold.sortable('#{sort_params[0]}', #{controller_name.to_json}, #{reorder_params.to_json});" %>
+    <%= "ActiveScaffold.sortable('#{sort_params[0]}', #{controller_name.to_json}, #{reorder_params.to_json});".html_safe %>
 <%
   end if controller.send :successful?
 end
