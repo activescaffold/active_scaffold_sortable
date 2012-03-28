@@ -1,6 +1,6 @@
 h1. Drag-Drop Sortable for ActiveScaffold
 
-Currently, this plugin is compatible with rails 3.x and master branches of vhochstein/ActiveScaffold.
+Currently, this plugin is compatible with rails 3.x and ActiveScaffold 3.x gems.
 
 h2. Overview
 
@@ -8,11 +8,11 @@ This plugin enables those slicker-than-snot ajax drag-drop sortable elements on 
 
 h2. Installation
 
-You'll need at least vhochstein/ActiveScaffold to use this, and rails 3.x
+You'll need at least ActiveScaffold 3.x to use this, and rails 3.x
 
 
 <pre>
-script/plugin install clone git://github.com/vhochstein/active_scaffold_sortable.git
+gem install active_scaffold_sortable
 </pre>
 
 h2. Usage
@@ -28,14 +28,18 @@ Create a model with a column named 'position':
 # title        string(255)
 # birthday     date
 # position     integer
-
-class Entry < ActiveRecord::Base
-end
 </pre>
 
 h4. Step 2
 
-Create your scaffold controller 
+Add acts_as_list to the model.
+<pre>
+class Entry < ActiveRecord::Base
+  acts_as_list # this line 
+end
+</pre>
+
+You can skip adding acts_as_list to the model, but you will have to enable sortable in the controller.
 
 <pre>
 # app/controllers/entries_controller.rb
@@ -48,38 +52,15 @@ class EntryController < ApplicationController
 end
 </pre>
 
-
-h4. Step 3
-
-Create your layout
-
-<pre>
-# app/views/layouts/application.rhtml
-<html>
-<head>
-  <title>active scaffold demo application</title>
-  <%= javascript_include_tag :defaults %>
-  <%= active_scaffold_includes %>
-</head>
-<body>
-  <%= yield %>
-</body>
-</html>
-</pre>
-
-h2. Notice:
-
-If you are using acts_as_list plugin you can skip the step 3
-
 h2. Support
 
-If you have issues installing the plugin, search / post to the "Active Scaffold":http://groups.google.com/group/activescaffold forum or "Create an issue":http://github.com/vhochstein/active_scaffold_sortable/issues
+If you have issues installing the plugin, search / post to the "Active Scaffold":http://groups.google.com/group/activescaffold forum or "Create an issue":http://github.com/activescaffold/active_scaffold_sortable/issues
 
 h2. Contributing
 
 Fork, hack, push, and request a pull:
 
-http://github.com/vhochstein/active_scaffold_sortable/
+http://github.com/activescaffold/active_scaffold_sortable/
 
 h2. License
 
