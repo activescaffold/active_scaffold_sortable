@@ -1,0 +1,7 @@
+<% if active_scaffold_config.sortable.add_handle_column == :first %>
+<th>&nbsp;</th>
+<% end %>
+<%= render :super %>
+<% if active_scaffold_config.sortable.add_handle_column == :last %>
+<th>&nbsp;</th>
+<% end %>

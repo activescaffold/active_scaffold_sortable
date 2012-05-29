@@ -17,7 +17,7 @@ module ActiveScaffold::Helpers
     end
 
     def list_row_class(record)
-      'sortable'
+      "#{'sortable-handle' unless active_scaffold_config.sortable.add_handle_column} #{super}"
     end
   end
 end

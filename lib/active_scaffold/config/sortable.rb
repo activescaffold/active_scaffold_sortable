@@ -1,8 +1,9 @@
 module ActiveScaffold::Config
   class Sortable < Base
     def initialize(core_config)
-      @options = {}
       @core = core_config
+      @options = self.class.options
+      self.add_handle_column = self.class.add_handle_column
       
       self.column = core_config.model.new.position_column unless (@core.model.instance_methods & [:acts_as_list_class, 'acts_as_list_class']).empty?
       self.column = core_config.model.new.left_column_name unless (@core.model.instance_methods & [:nested_set_scope, 'nested_set_scope']).empty?
@@ -16,6 +17,12 @@ module ActiveScaffold::Config
     cattr_accessor :plugin_directory
     @@plugin_directory = File.expand_path(__FILE__).match(%{(^.*)/lib/active_scaffold/config/sortable.rb})[1]
 
+    cattr_accessor :add_handle_column
+    @@add_handle_column = false
+
+    cattr_accessor :options
+    @@options = {}
+
     self.crud_type = :update
     
     attr_reader :column
@@ -26,5 +33,14 @@ module ActiveScaffold::Config
     end
     
     attr_accessor :options
+    
+    attr_reader :add_handle_column
+    def add_handle_column=(where)
+      if where
+        raise(ArgumentError, "Unknown handle column position: #{where}") unless [:first, :last].include?(where)
+        @options[:handle] = 'td.sortable-handle'
+      end
+      @add_handle_column = where
+    end
   end
 end
