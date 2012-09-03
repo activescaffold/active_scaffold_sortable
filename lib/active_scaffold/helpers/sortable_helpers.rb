@@ -28,7 +28,7 @@ module ActiveScaffold::Helpers
       end
     end
 
-    def active_scaffold_sortable_column(record)
+    def active_scaffold_sortable_column(record, column)
       ''
     end
   end
