@@ -11,6 +11,7 @@ module ActiveScaffold::Config
         raise "ActiveScaffoldSortable: Missing sortable attribute '#{core_config.model.new.left_column_name}' in model '#{core_config.model.to_s}'" if @core.model.instance_methods.include? 'nested_set_scope'
       end
       self.add_handle_column = self.class.add_handle_column
+      self.refresh_list = self.class.refresh_list
     end
 
     cattr_accessor :plugin_directory
@@ -22,6 +23,8 @@ module ActiveScaffold::Config
     cattr_accessor :options
     @@options = {}
 
+    cattr_accessor :refresh_list
+
     self.crud_type = :update
     
     attr_reader :column
@@ -32,6 +35,7 @@ module ActiveScaffold::Config
     end
     
     attr_accessor :options
+    attr_accessor :refresh_list
     
     attr_reader :add_handle_column
     def add_handle_column=(where)

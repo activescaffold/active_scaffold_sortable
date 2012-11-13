@@ -1,1 +1,5 @@
+<% if active_scaffold_config.sortable.refresh_list %>
+<%= render :partial => 'refresh_list' %>
+<% else %>
 ActiveScaffold.stripe('<%= active_scaffold_tbody_id %>');
+<% end %>

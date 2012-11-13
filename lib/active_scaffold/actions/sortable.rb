@@ -32,6 +32,7 @@ module ActiveScaffold::Actions
           reorder_simple_list(model)
         end
       end
+      do_refresh_list if active_scaffold_config.sortable.refresh_list
     end
     
     protected
