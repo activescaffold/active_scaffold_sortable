@@ -12,6 +12,7 @@ module ActiveScaffold::Actions
         config.list.sorting = { sortable_column => "asc" }
       
         config.actions.each do |action_name|
+          next if action_name == :subform
           action = config.send(action_name)
           action.columns.exclude(sortable_column) if action.respond_to? :columns
         end

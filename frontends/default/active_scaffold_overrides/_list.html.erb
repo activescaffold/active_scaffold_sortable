@@ -1,8 +1,1 @@
-<%= render :super %>
-<% if ActiveScaffold.js_framework == :prototype %>
-<%= sortable_element *sort_params %>
-<% elsif ActiveScaffold.js_framework == :jquery %>
-  <% reorder_params = params_for.except(:controller, :action)
-     options = {:update => true, :action => 'reorder'}.merge(active_scaffold_config.sortable.options) %>
-     <%= javascript_tag "ActiveScaffold.sortable('#{sort_params[0]}', #{url_for(:controller => controller_name).to_json}, #{options.to_json}, #{reorder_params.to_json});" %>
-<% end %>
+<%= content_tag :div, render(:super), :class => 'sortable-container', :data => sort_params %>

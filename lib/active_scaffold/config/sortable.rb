@@ -30,7 +30,14 @@ module ActiveScaffold::Config
     attr_reader :column
     def column=(column_name)
       @column = @core.columns[column_name]
-      Rails.logger.error("ActiveScaffold Sortable: postion column: #{column_name} not found in model") if @column.nil?
+      if @column.nil?
+        Rails.logger.error("ActiveScaffold Sortable: postion column: #{column_name} not found in model")
+      else
+        @column.form_ui = :hidden
+        @column.css_class = 'sortable-handle'
+        @column.label = ''
+        @column.weight = -2**(0.size * 8 -2)
+      end
       @column
     end
     
@@ -46,6 +53,7 @@ module ActiveScaffold::Config
         if where == :first
           @core.list.columns = [:active_scaffold_sortable] + @core.list.columns.names_without_auth_check unless @core.list.columns.include? :active_scaffold_sortable
         else
+          @column.weight = 2**(0.size * 8 -2) -1
           @core.list.columns.add :active_scaffold_sortable
         end
       end

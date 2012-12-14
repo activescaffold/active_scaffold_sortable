@@ -21,6 +21,6 @@ module ActiveScaffold
     ActiveScaffold.autoload_subdir('helpers', self, File.dirname(__FILE__))
   end
 end
-
 ActiveScaffold::Config::Core.send :include, ActiveScaffoldSortable::Core
 ActiveScaffold.stylesheets << 'active_scaffold_sortable'
+ActiveScaffold.javascripts << 'active_scaffold_sortable'
