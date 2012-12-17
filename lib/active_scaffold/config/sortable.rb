@@ -2,7 +2,7 @@ module ActiveScaffold::Config
   class Sortable < Base
     def initialize(core_config)
       @core = core_config
-      @options = self.class.options
+      @options = self.class.options.clone
       
       self.column = core_config.model.new.position_column unless (@core.model.instance_methods & [:acts_as_list_class, 'acts_as_list_class']).empty?
       self.column = core_config.model.new.left_column_name unless (@core.model.instance_methods & [:nested_set_scope, 'nested_set_scope']).empty?
@@ -56,6 +56,8 @@ module ActiveScaffold::Config
           @column.weight = 2**(0.size * 8 -2) -1
           @core.list.columns.add :active_scaffold_sortable
         end
+      else
+        @options.delete(:handle)
       end
       @add_handle_column = where
     end

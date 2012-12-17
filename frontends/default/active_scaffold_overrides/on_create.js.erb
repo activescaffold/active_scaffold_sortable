@@ -1,16 +1,4 @@
 <%= render(:super, :locals => {:insert_at => :bottom}) %>
-<%
-unless nested_singular_association?
-  if ActiveScaffold.js_framework == :prototype
-%>
-    <%= sortable_element_js(*sort_params) %>
-<%
-  elsif ActiveScaffold.js_framework == :jquery
-    reorder_params = {}
-    reorder_params[:eid] = params[:eid] unless params[:eid].blank?
-%>
-    <%= "ActiveScaffold.sortable('#{sort_params[0]}', #{controller_name.to_json}, #{reorder_params.to_json});".html_safe %>
-<%
-  end if controller.send :successful?
-end
-%>
+<% if controller.send(:successful?) && !nested_singular_association? %>
+  ActiveScaffold.sortable('<%= active_scaffold_tbody_id %>');
+<% end %>

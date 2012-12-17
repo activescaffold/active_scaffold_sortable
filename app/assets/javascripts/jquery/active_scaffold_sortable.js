@@ -1,16 +1,22 @@
 ActiveScaffold.sortable = function(element) {
-  var form = element.closest('form.as_form'), content, sortable_options = {};
-  if (form.length) content = element.find('.sub-form:first');
-  else content = element.find('.records:first');
+  var content, sortable_options = {};
+  if (typeof(element) == 'string') {
+    content = $('#' + element);
+    element = content.closest('.sortable-container');
+  } else {
+    if (element.closest('form.as_form').length) content = element.find('.sub-form:first');
+    else content = element.find('.records:first');
+  }
+  
   if (element.data('update')) {
     var csrf = {};
-    csrf[jQuery('meta[name=csrf-param]').attr('content')] = jQuery('meta[name=csrf-token]').attr('content');
-    var url = element.data('reorder-url').append_params(csrf);
+    var params = jQuery('meta[name=csrf-param]').attr('content') + '=' + jQuery('meta[name=csrf-token]').attr('content');
+    var url = element.data('reorder-url');
     sortable_options.update = function(event, ui) {
       var body = jQuery(this).sortable('serialize',{key: encodeURIComponent(jQuery(this).attr('id') + '[]'), expression: new RegExp(element.data('format'))});
-      var params = element.data('with');
-      if (params) url += '&' + params;
-      jQuery.post(url, {data: body});
+      var extra_params = element.data('with');
+      if (extra_params) body += '&' + extra_params;
+      jQuery.post(url, body + '&' + params);
     }
   }
   sortable_options.handle = element.data('handle');
