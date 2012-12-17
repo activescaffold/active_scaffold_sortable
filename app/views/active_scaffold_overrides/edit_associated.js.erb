@@ -1,0 +1,5 @@
+<%= render :super %>
+<% config = active_scaffold_config_for(@column.association.klass) %>
+<% if config.actions.include? :sortable %>
+ActiveScaffold.sortable('<%= sub_form_list_id(:association => @column.name) %>');
+<% end %>

@@ -1,23 +1,29 @@
 ActiveScaffold.sortable = function(element) {
-  var content, sortable_options = {};
+  var form, content, sortable_options = {};
   if (typeof(element) == 'string') {
-    content = $('#' + element);
+    content = jQuery('#' + element);
     element = content.closest('.sortable-container');
   } else {
-    if (element.closest('form.as_form').length) content = element.find('.sub-form:first');
+    var form = element.closest('form.as_form').length > 0;
+    if (form) content = element;
     else content = element.find('.records:first');
   }
   
-  if (element.data('update')) {
-    var csrf = {};
-    var params = jQuery('meta[name=csrf-param]').attr('content') + '=' + jQuery('meta[name=csrf-token]').attr('content');
+  if (form) {
+    sortable_options.update = function(event, ui) {
+      jQuery.each(content.find('.association-record input[name$="[' + element.data('column') + ']"]'), function(i, field) {
+        jQuery(field).val(i);
+      });
+    };
+  } else {
+    var csrf = jQuery('meta[name=csrf-param]').attr('content') + '=' + jQuery('meta[name=csrf-token]').attr('content');
     var url = element.data('reorder-url');
     sortable_options.update = function(event, ui) {
       var body = jQuery(this).sortable('serialize',{key: encodeURIComponent(jQuery(this).attr('id') + '[]'), expression: new RegExp(element.data('format'))});
-      var extra_params = element.data('with');
-      if (extra_params) body += '&' + extra_params;
-      jQuery.post(url, body + '&' + params);
-    }
+      var params = element.data('with');
+      if (params) body += '&' + params;
+      jQuery.post(url, body + '&' + csrf);
+    };
   }
   sortable_options.handle = element.data('handle');
   sortable_options.items = element.data('tag');
