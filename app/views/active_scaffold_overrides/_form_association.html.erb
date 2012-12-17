@@ -1,6 +1,6 @@
 <% config = active_scaffold_config_for(column.association.klass) %>
 <% if config.actions.include? :sortable %>
-<%= content_tag :div, render(:super), :class => 'sortable-container', :data => sort_params(config) %>
+<%= content_tag :div, render(:super), :class => 'sortable-container', :data => sort_params(config).merge(:tag => '.sub-form-record') %>
 <% else %>
 <%= render :super %>
 <% end %>

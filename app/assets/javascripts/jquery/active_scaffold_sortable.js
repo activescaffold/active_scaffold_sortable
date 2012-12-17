@@ -1,19 +1,25 @@
+ActiveScaffold.update_positions = function(content) {
+  if (typeof(content) == 'string') content = jQuery('#' + content);
+  var element = content.closest('.sortable-container');
+  jQuery.each(content.find('.sub-form-record input[name$="[' + element.data('column') + ']"]'), function(i, field) {
+    jQuery(field).val(i);
+  });
+}
 ActiveScaffold.sortable = function(element) {
   var form, content, sortable_options = {};
   if (typeof(element) == 'string') {
     content = jQuery('#' + element);
     element = content.closest('.sortable-container');
+    form = element.closest('form.as_form').length > 0;
   } else {
-    var form = element.closest('form.as_form').length > 0;
+    form = element.closest('form.as_form').length > 0;
     if (form) content = element;
     else content = element.find('.records:first');
   }
   
   if (form) {
     sortable_options.update = function(event, ui) {
-      jQuery.each(content.find('.association-record input[name$="[' + element.data('column') + ']"]'), function(i, field) {
-        jQuery(field).val(i);
-      });
+      ActiveScaffold.update_positions(content);
     };
   } else {
     var csrf = jQuery('meta[name=csrf-param]').attr('content') + '=' + jQuery('meta[name=csrf-token]').attr('content');
