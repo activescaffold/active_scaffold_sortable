@@ -2,7 +2,7 @@ ActiveScaffold.update_positions = function(content) {
   if (typeof(content) == 'string') content = jQuery('#' + content);
   var element = content.closest('.sortable-container');
   jQuery.each(content.find('.sub-form-record input[name$="[' + element.data('column') + ']"]'), function(i, field) {
-    jQuery(field).val(i);
+    jQuery(field).val(i+1); // don't use 0
   });
 }
 ActiveScaffold.sortable = function(element) {
