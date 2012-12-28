@@ -12,6 +12,7 @@ ActiveScaffold.sortable = function(element) {
     element = content.closest('.sortable-container');
     form = element.closest('form.as_form').length > 0;
   } else {
+    element = jQuery(element);
     form = element.closest('form.as_form').length > 0;
     if (form) content = element;
     else content = element.find('.records:first');
