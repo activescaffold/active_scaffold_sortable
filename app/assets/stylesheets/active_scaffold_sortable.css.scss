@@ -1,7 +1,7 @@
 .sortable-handle {
   cursor: move;
 }
-td.sortable-handle {
+td.sortable-handle, .active-scaffold .sub-form table td.sortable-handle {
   background: image-url('active_scaffold/sortable.png') no-repeat center center;
   width: 16px;
 }
