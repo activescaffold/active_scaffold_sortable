@@ -50,11 +50,13 @@ module ActiveScaffold::Config
         raise(ArgumentError, "Unknown handle column position: #{where}") unless [:first, :last].include?(where)
         @options[:handle] = 'td.sortable-handle'
         define_handle_column
-        if where == :first
-          @core.list.columns = [:active_scaffold_sortable] + @core.list.columns.names_without_auth_check unless @core.list.columns.include? :active_scaffold_sortable
-        else
-          @column.weight = 2**(0.size * 8 -2) -1
-          @core.list.columns.add :active_scaffold_sortable
+        @column.weight = 2**(0.size * 8 -2) -1 unless where == :first
+        if @core.actions.include? :list
+          if where == :first
+            @core.list.columns = [:active_scaffold_sortable] + @core.list.columns.names_without_auth_check unless @core.list.columns.include? :active_scaffold_sortable
+          else
+            @core.list.columns.add :active_scaffold_sortable 
+          end
         end
       else
         @options.delete(:handle)
