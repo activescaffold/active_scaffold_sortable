@@ -4,12 +4,12 @@ module ActiveScaffold::Actions
       base.helper ActiveScaffold::Helpers::SortableHelpers
       base.before_filter :sortable_authorized?, :only => :reorder
       base.active_scaffold_config.configure do |config|
-        config.list.pagination = false
+        config.list.pagination = false if config.actions.include? :list
       
         # turn sorting off
         sortable_column = config.sortable.column.name
         config.columns.each {|c| c.sort = false unless c.name == sortable_column }
-        config.list.sorting = { sortable_column => "asc" }
+        config.list.sorting = { sortable_column => "asc" } if config.actions.include? :list
       
         config.actions.each do |action_name|
           next if action_name == :subform
