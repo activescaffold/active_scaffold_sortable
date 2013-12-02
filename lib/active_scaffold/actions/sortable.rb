@@ -54,7 +54,7 @@ module ActiveScaffold::Actions
     def reorder_simple_list(model)
       column_name = active_scaffold_config.sortable.column.name
       params[active_scaffold_tbody_id].each_with_index do |id, index|
-        model.update_all({column_name => index + 1}, {model.primary_key => id})
+        model.where(model.primary_key => id).update_all(column_name => index + 1)
       end
     end
     
