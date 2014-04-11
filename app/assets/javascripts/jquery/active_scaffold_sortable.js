@@ -44,6 +44,10 @@ jQuery(document).ready(function($) {
     var sortable = $('.sortable-container', action_link.adapter);
     if (sortable.length) $.each(sortable, function(i, s) { ActiveScaffold.sortable($(s)); });
   });
+  $(document).on('as:element_updated', function(e) {
+    var sortable = $('.sortable-container', e.target);
+    if (sortable.length) $.each(sortable, function(i, s) { ActiveScaffold.sortable($(s)); });
+  });
   var sortable = $('.sortable-container');
   if (sortable.length) ActiveScaffold.sortable(sortable);
 });
