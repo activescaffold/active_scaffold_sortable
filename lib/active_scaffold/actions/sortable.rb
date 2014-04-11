@@ -59,20 +59,22 @@ module ActiveScaffold::Actions
     end
     
     def reorder_children_in_tree(model)
-      current_order = model.find(params[active_scaffold_tbody_id].first).try(:self_and_siblings)
+      full_order = model.find(params[active_scaffold_tbody_id].first).try(:self_and_siblings)
       new_order = params[active_scaffold_tbody_id].collect {|item_id| item_id.to_i}
+      current_order = full_order.length == new_order.length ? full_order : full_order.select{ |r| new_order.include? r.id }
+
       new_order.each_with_index do |record_id, new_position|
-        if record_id != current_order[new_position].id
-          current_order = move_child(current_order.find {|child| child.id == record_id}, new_position, current_order) 
+        child = full_order.find {|child| child.id == record_id}
+        while record_id != current_order[new_position].id do
+          full_order = move_child(child, current_order.index(child), new_position)
+          current_order = full_order.length == new_order.length ? full_order : full_order.select{ |r| new_order.include? r.id }
         end
       end if new_order.length == current_order.length
     end
-    
-    def move_child(child, new_position, children)
-      old_position = children.index(child)
-      (old_position - new_position).abs.times do |step|
-        child.send((old_position - new_position) > 0 ? :move_left : :move_right)
-      end
+
+    def move_child(child, old_position, new_position)
+      method = (old_position - new_position) > 0 ? :move_left : :move_right
+      (old_position - new_position).abs.times { |_| child.send(method) }
       child.self_and_siblings
     end
 
