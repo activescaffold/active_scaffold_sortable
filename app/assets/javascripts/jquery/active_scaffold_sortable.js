@@ -6,7 +6,7 @@ ActiveScaffold.update_positions = function(content) {
   });
 }
 ActiveScaffold.sortable = function(element) {
-  var form, content, sortable_options = {containment: 'parent'};
+  var form, content, sortable_options = {containment: 'parent', forcePlaceholderSize: true, placeholder: 'sortable-highlight'};
   if (typeof(element) == 'string') {
     content = jQuery('#' + element);
     element = content.closest('.sortable-container');
