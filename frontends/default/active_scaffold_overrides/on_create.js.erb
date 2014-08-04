@@ -1,4 +1,4 @@
-<%= render(:super, :locals => {:insert_at => :bottom}) %>
+<%= render(:super, :locals => {:insert_at => local_assigns[:insert_at] || :bottom}) %>
 <% if controller.send(:successful?) && !nested_singular_association? %>
   ActiveScaffold.sortable('<%= active_scaffold_tbody_id %>');
 <% end %>
