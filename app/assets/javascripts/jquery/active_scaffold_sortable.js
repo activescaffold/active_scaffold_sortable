@@ -6,7 +6,13 @@ ActiveScaffold.update_positions = function(content) {
   });
 }
 ActiveScaffold.sortable = function(element) {
-  var form, content, sortable_options = {containment: 'parent', forcePlaceholderSize: true, placeholder: 'sortable-highlight'};
+  var fixHelper = function(e, ui) {
+    ui.find('*').each(function() {
+      $(this).width($(this).width());
+    });
+    return ui;
+  };
+  var form, content, sortable_options = {containment: 'parent', forcePlaceholderSize: true, placeholder: 'sortable-highlight', helper: fixHelper};
   if (typeof(element) == 'string') {
     content = jQuery('#' + element);
     element = content.closest('.sortable-container');
