@@ -17,13 +17,6 @@ Rake::TestTask.new(:test) do |t|
   t.verbose = true
 end
 
-require 'rcov/rcovtask'
-Rcov::RcovTask.new do |test|
-  test.libs << 'test'
-  test.pattern = 'test/**/test_*.rb'
-  test.verbose = true
-end
-
 task :default => :test
 
 require 'rdoc/task'
