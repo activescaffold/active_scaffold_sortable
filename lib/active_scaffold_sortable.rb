@@ -1,5 +1,6 @@
 require "active_scaffold_sortable/config/core.rb"
 require "active_scaffold_sortable/core.rb"
+require "active_scaffold_sortable/attribute_params.rb"
 require "active_scaffold_sortable/engine.rb" unless defined? ACTIVE_SCAFFOLD_SORTABLE_PLUGIN
 
 module ActiveScaffoldSortable
@@ -24,5 +25,6 @@ module ActiveScaffold
 end
 ActionView::Base.send :include, ActiveScaffoldSortable::ViewHelpers
 ActiveScaffold::Config::Core.send :include, ActiveScaffoldSortable::Core
+ActiveScaffold::AttributeParams.send :include, ActiveScaffoldSortable::AttributeParams
 ActiveScaffold.stylesheets << 'active_scaffold_sortable'
 ActiveScaffold.javascripts << 'active_scaffold_sortable'
