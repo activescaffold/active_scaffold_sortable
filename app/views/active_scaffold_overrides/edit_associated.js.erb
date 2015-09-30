@@ -1,6 +1,7 @@
 <%= render :super %>
 <% config = active_scaffold_config_for(@column.association.klass) %>
 <% if config.actions.include? :sortable %>
-ActiveScaffold.update_positions('<%= sub_form_list_id(:association => @column.name) %>');
-ActiveScaffold.sortable('<%= sub_form_list_id(:association => @column.name) %>');
+<% list_id = sub_form_list_id(:association => @column.name, :id => @parent_record.try(:id) || generated_id(@parent_record) || 99999999999) %>
+ActiveScaffold.update_positions('<%= list_id %>');
+ActiveScaffold.sortable('<%= list_id %>');
 <% end %>
