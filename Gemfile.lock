@@ -57,10 +57,12 @@ GEM
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
     mime-types (2.6.2)
-    mini_portile (0.6.2)
+    mini_portile2 (2.1.0)
     minitest (5.8.1)
-    nokogiri (1.6.6.2)
-      mini_portile (~> 0.6.0)
+    nokogiri (1.6.8)
+      mini_portile2 (~> 2.1.0)
+      pkg-config (~> 1.1.7)
+    pkg-config (1.1.7)
     rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -114,3 +116,6 @@ DEPENDENCIES
   bundler (>= 1.0.0)
   shoulda
   simplecov
+
+BUNDLED WITH
+   1.12.4
