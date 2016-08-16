@@ -1,7 +1,7 @@
 # encoding: utf-8
 ENV["RAILS_ENV"] = "test"
 
-require 'test/unit'
+require 'minitest/autorun'
 # You can use "rake test AR_VERSION=2.0.5" to test against 2.0.5, for example.
 # The default is to use the latest installed ActiveRecord.
 if ENV["AR_VERSION"]
@@ -15,7 +15,9 @@ require 'action_controller'
 require 'action_view/test_case'
 require 'action_mailer'
 require 'active_support'
-require 'initializer'
+require 'rails'
+require 'active_scaffold'
+require 'active_scaffold_sortable'
 ActionController::Base::logger = ActiveSupport::BufferedLogger.new(Tempfile.new('log').path)
 
 RAILS_ROOT = File.join(File.dirname(__FILE__), '../../../..')
