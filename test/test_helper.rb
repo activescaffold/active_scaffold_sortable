@@ -18,23 +18,13 @@ require 'active_support'
 require 'rails'
 require 'active_scaffold'
 require 'active_scaffold_sortable'
-ActionController::Base::logger = ActiveSupport::BufferedLogger.new(Tempfile.new('log').path)
 
-RAILS_ROOT = File.join(File.dirname(__FILE__), '../../../..')
-Rails.configuration = Rails::Configuration.new
+require 'mocha/setup'
 
-require 'shoulda'
-require 'shoulda/rails'
-require 'mocha'
-begin
-  require 'redgreen'
-rescue LoadError
-end
+#ActiveSupport::Dependencies.load_paths = %w(test/models test/controllers lib ../active_scaffold/lib).map {|dir| File.dirname(__FILE__) + "/../#{dir}"}
+#$:.unshift *ActiveSupport::Dependencies.load_paths
 
-ActiveSupport::Dependencies.load_paths = %w(test/models test/controllers lib ../active_scaffold/lib).map {|dir| File.dirname(__FILE__) + "/../#{dir}"}
-$:.unshift *ActiveSupport::Dependencies.load_paths
-
-require File.join(File.dirname(__FILE__), '../../active_scaffold/environment')
+require File.join(File.dirname(__FILE__), '../../active_scaffold/lib/active_scaffold')
 require 'sortable'
 
 ActionController::Routing::Routes.draw do |map|

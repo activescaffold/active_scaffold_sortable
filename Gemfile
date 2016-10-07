@@ -9,6 +9,7 @@ gemspec
 # Include everything needed to run rake, tests, features, etc.
 group :development, :test do
   gem "shoulda", ">= 0"
+  gem "mocha"
   gem "bundler", ">= 1.0.0"
   gem "simplecov", ">= 0"
 end
