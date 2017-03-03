@@ -1,5 +1,5 @@
 .sortable-handle { cursor: move; }
-.active-scaffold .sub-form table td.sortable-handle { display: table-cell; }
+.active-scaffold .sub-form table td.sortable-handle { display: table-cell; visibility: visible; }
 .active-scaffold .sub-form tbody.sortable-highlight { display: table-row; }
 td.sortable-handle, .active-scaffold .sub-form table td.sortable-handle {
   background: image-url('active_scaffold/sortable.png') no-repeat center center;
