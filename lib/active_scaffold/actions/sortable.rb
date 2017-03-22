@@ -2,7 +2,7 @@ module ActiveScaffold::Actions
   module Sortable
     def self.included(base)
       base.helper ActiveScaffold::Helpers::SortableHelpers
-      base.before_filter :sortable_authorized?, :only => :reorder
+      base.before_action :sortable_authorized?, :only => :reorder
       base.active_scaffold_config.configure do |config|
         config.list.pagination = false if config.actions.include? :list
       
