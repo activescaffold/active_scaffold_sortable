@@ -22,5 +22,6 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   s.add_runtime_dependency(%q<active_scaffold>, [">= 3.3.0.rc3"])
+  s.add_runtime_dependency(%q<rails>, [">= 4.0"])
 end
 

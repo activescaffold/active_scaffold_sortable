@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    active_scaffold_sortable (3.2.13)
+    active_scaffold_sortable (3.3.0)
       active_scaffold (>= 3.3.0.rc3)
 
 GEM
@@ -65,7 +65,7 @@ GEM
     minitest (5.9.0)
     mocha (1.2.1)
       metaclass (~> 0.0.1)
-    nokogiri (1.7.0.1)
+    nokogiri (1.7.1)
       mini_portile2 (~> 2.1.0)
     rack (1.6.5)
     rack-test (0.6.3)

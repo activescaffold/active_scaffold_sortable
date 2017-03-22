@@ -1,6 +1,7 @@
 h1. Drag-Drop Sortable for ActiveScaffold
 
-Currently, this plugin is compatible with rails 3.x and ActiveScaffold 3.x gems.
+Currently, this plugin is compatible with rails 4.x and ActiveScaffold >= 3.3 gems.
+Use 3.2.x for rails 3.x versions.
 
 h2. Overview
 
@@ -8,7 +9,7 @@ This plugin enables those slicker-than-snot ajax drag-drop sortable elements on 
 
 h2. Installation
 
-You'll need at least ActiveScaffold 3.x to use this, and rails 3.x
+You'll need at least ActiveScaffold 3.x to use this, and rails 4.x
 
 
 <pre>
