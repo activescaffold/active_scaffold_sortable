@@ -3,6 +3,7 @@ PATH
   specs:
     active_scaffold_sortable (3.3.0)
       active_scaffold (>= 3.3.0.rc3)
+      rails (>= 4.0)
 
 GEM
   remote: http://rubygems.org/
