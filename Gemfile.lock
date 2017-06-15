@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    active_scaffold_sortable (3.3.1)
+    active_scaffold_sortable (3.3.2)
       active_scaffold (>= 3.3.0.rc3)
       rails (>= 4.0)
 
