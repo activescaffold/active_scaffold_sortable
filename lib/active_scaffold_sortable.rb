@@ -24,7 +24,7 @@ module ActiveScaffold
   end
 end
 ActionView::Base.send :include, ActiveScaffoldSortable::ViewHelpers
-ActiveScaffold::Config::Core.send :include, ActiveScaffoldSortable::Core
-ActiveScaffold::AttributeParams.send :include, ActiveScaffoldSortable::AttributeParams
+ActiveScaffold::Config::Core.send :prepend, ActiveScaffoldSortable::Core
+ActiveScaffold::AttributeParams.send :prepend, ActiveScaffoldSortable::AttributeParams
 ActiveScaffold.stylesheets << 'active_scaffold_sortable'
 ActiveScaffold.javascripts << 'active_scaffold_sortable'
