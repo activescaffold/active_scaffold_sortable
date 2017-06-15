@@ -8,9 +8,18 @@ ActiveScaffold.update_positions = function(content) {
 ActiveScaffold.sortable = function(element) {
   var fixHelper = function(e, ui) {
     ui.find('*').each(function() {
+      $(this).data('sortable-prev-style', $(this).attr('style'));
       $(this).width($(this).width());
     });
     return ui;
+  };
+  var restoreHelper = function(ui) {
+    ui.find('*').each(function() {
+      var style = $(this).data('sortable-prev-style');
+      if (style) $(this).attr('style', style);
+      else $(this).removeAttr('style');
+      $(this).removeData('sortable-prev-style');
+    });
   };
   var form, content, sortable_options = {containment: 'parent', tolerance: 'pointer', forcePlaceholderSize: true, placeholder: 'sortable-highlight', helper: fixHelper};
   if (typeof(element) == 'string') {
@@ -26,6 +35,7 @@ ActiveScaffold.sortable = function(element) {
   
   if (form) {
     sortable_options.update = function(event, ui) {
+      restoreHelper(content);
       ActiveScaffold.update_positions(content);
     };
   } else {
@@ -33,6 +43,7 @@ ActiveScaffold.sortable = function(element) {
     if (url) {
       var csrf = jQuery('meta[name=csrf-param]').attr('content') + '=' + jQuery('meta[name=csrf-token]').attr('content');
       sortable_options.update = function(event, ui) {
+        restoreHelper(content);
         var body = jQuery(this).sortable('serialize',{key: encodeURIComponent(jQuery(this).attr('id') + '[]'), expression: new RegExp(element.data('format'))});
         var params = element.data('with');
         if (params) body += '&' + params;
