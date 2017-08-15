@@ -8,17 +8,17 @@ ActiveScaffold.update_positions = function(content) {
 ActiveScaffold.sortable = function(element) {
   var fixHelper = function(e, ui) {
     ui.find('*').each(function() {
-      $(this).data('sortable-prev-style', $(this).attr('style'));
-      $(this).width($(this).width());
+      jQuery(this).data('sortable-prev-style', jQuery(this).attr('style'));
+      jQuery(this).width(jQuery(this).width());
     });
     return ui;
   };
   var restoreHelper = function(e, ui) {
     ui.helper.find('*').each(function() {
-      var style = $(this).data('sortable-prev-style');
-      if (style) $(this).attr('style', style);
-      else $(this).removeAttr('style');
-      $(this).removeData('sortable-prev-style');
+      var style = jQuery(this).data('sortable-prev-style');
+      if (style) jQuery(this).attr('style', style);
+      else jQuery(this).removeAttr('style');
+      jQuery(this).removeData('sortable-prev-style');
     });
   };
   var form, content, sortable_options = {containment: 'parent', tolerance: 'pointer', forcePlaceholderSize: true, placeholder: 'sortable-highlight', helper: fixHelper, beforeStop: restoreHelper};
