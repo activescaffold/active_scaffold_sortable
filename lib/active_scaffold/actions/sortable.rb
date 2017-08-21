@@ -42,10 +42,10 @@ module ActiveScaffold::Actions
     end
     
     def reorder_ancestry_tree(model)
-      first_record = model.find(params[active_scaffold_tbody_id].first)
+      first_record = model.find(ordered_ids.first)
       unless first_record.nil?
         records = first_record.is_root? ? model.roots: first_record.parent.children
-        reorder_simple_list(model)
+        reorder_simple_list(records)
       else
         Rails.logger.info("Failed to find first record to reorder")
       end
@@ -53,14 +53,14 @@ module ActiveScaffold::Actions
     
     def reorder_simple_list(model)
       column_name = active_scaffold_config.sortable.column.name
-      params[active_scaffold_tbody_id].each_with_index do |id, index|
+      ordered_ids.each.with_index do |id, index|
         model.where(model.primary_key => id).update_all(column_name => index + 1)
       end
     end
     
     def reorder_children_in_tree(model)
-      full_order = model.find(params[active_scaffold_tbody_id].first).try(:self_and_siblings)
-      new_order = params[active_scaffold_tbody_id].collect {|item_id| item_id.to_i}
+      full_order = model.find(ordered_ids.first).try(:self_and_siblings)
+      new_order = ordered_ids.collect {|item_id| item_id.to_i}
       current_order = full_order.length == new_order.length ? full_order : full_order.select{ |r| new_order.include? r.id }
 
       new_order.each_with_index do |record_id, new_position|
@@ -76,6 +76,10 @@ module ActiveScaffold::Actions
       method = (old_position - new_position) > 0 ? :move_left : :move_right
       (old_position - new_position).abs.times { |_| child.send(method) }
       child.self_and_siblings
+    end
+
+    def ordered_ids
+      @ordered_ids ||= params.delete active_scaffold_tbody_id
     end
 
   end
