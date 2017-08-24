@@ -50,7 +50,7 @@ ActiveScaffold.sortable = function(element) {
     }
   }
   sortable_options.handle = element.data('handle');
-  sortable_options.items = element.data('tag');
+  sortable_options.items = '> ' + element.data('tag');
   content.sortable(sortable_options);
 };
 
