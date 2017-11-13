@@ -8,10 +8,17 @@ ActiveScaffold.update_positions = function(content) {
 ActiveScaffold.sortable = function(element) {
   var fixHelper = function(e, ui) {
     ui.find('*').each(function() {
-      jQuery(this).data('sortable-prev-style', jQuery(this).attr('style'));
-      jQuery(this).width(jQuery(this).width());
+      var $this = jQuery(this);
+      $this.data('sortable-prev-style', $this.attr('style'));
+      $this.width($this.width());
     });
     return ui;
+  };
+  var copyHelperToPlaceholder = function(e, ui) {
+    var items = ui.placeholder.find('td');
+    ui.helper.find('td').each(function(i) {
+      jQuery(items[i]).width(jQuery(this).width());
+    });
   };
   var restoreHelper = function(e, ui) {
     ui.helper.find('*').each(function() {
@@ -21,7 +28,7 @@ ActiveScaffold.sortable = function(element) {
       jQuery(this).removeData('sortable-prev-style');
     });
   };
-  var form, content, sortable_options = {containment: 'parent', tolerance: 'pointer', forcePlaceholderSize: true, placeholder: 'sortable-highlight', helper: fixHelper, beforeStop: restoreHelper};
+  var form, content, sortable_options = {containment: 'parent', tolerance: 'pointer', forcePlaceholderSize: true, placeholder: 'sortable-highlight', helper: fixHelper, beforeStop: restoreHelper, start: copyHelperToPlaceholder};
   if (typeof(element) == 'string') {
     content = jQuery('#' + element);
     element = content.closest('.sortable-container');
@@ -50,7 +57,7 @@ ActiveScaffold.sortable = function(element) {
     }
   }
   sortable_options.handle = element.data('handle');
-  sortable_options.items = '> ' + element.data('tag');
+  sortable_options.items = element.data('tag');
   content.sortable(sortable_options);
 };
 

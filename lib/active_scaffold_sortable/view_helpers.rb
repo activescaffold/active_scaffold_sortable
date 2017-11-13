@@ -2,7 +2,7 @@ module ActiveScaffoldSortable
   module ViewHelpers
     def sort_params(config = active_scaffold_config)
       options = {
-        :tag => 'tr', 
+        :tag => '> tr', 
         :format => '^[^_-](?:[A-Za-z0-9_-]*)-(.*)-row$',
         :column => config.sortable.column.name
       }
