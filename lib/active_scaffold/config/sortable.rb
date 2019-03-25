@@ -53,7 +53,7 @@ module ActiveScaffold::Config
         @column.weight = 2**(0.size * 8 -2) -1 unless where == :first
         if @core.actions.include? :list
           if where == :first
-            @core.list.columns = [:active_scaffold_sortable] + @core.list.columns.names_without_auth_check unless @core.list.columns.include? :active_scaffold_sortable
+            @core.list.columns = [:active_scaffold_sortable] + @core.list.columns.to_a unless @core.list.columns.include? :active_scaffold_sortable
           else
             @core.list.columns.add :active_scaffold_sortable 
           end
