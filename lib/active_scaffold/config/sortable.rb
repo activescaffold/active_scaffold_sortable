@@ -72,5 +72,9 @@ module ActiveScaffold::Config
       @core.columns[:active_scaffold_sortable].label = ''
       @core.columns[:active_scaffold_sortable].sort = false
     end
+
+    UserSettings.class_eval do
+      user_attr :options, :refresh_list
+    end
   end
 end
