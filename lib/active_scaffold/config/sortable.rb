@@ -1,7 +1,7 @@
 module ActiveScaffold::Config
   class Sortable < Base
     def initialize(core_config)
-      @core = core_config
+      super
       @options = self.class.options.clone
       
       self.column = core_config.model.new.position_column unless (@core.model.instance_methods & [:acts_as_list_class, 'acts_as_list_class']).empty?
