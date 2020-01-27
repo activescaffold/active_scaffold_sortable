@@ -24,14 +24,12 @@ module ActiveScaffold::Actions
     def reorder
       model = active_scaffold_config.model
       
-      unless (model.instance_methods & [:nested_set_scope, 'nested_set_scope']).empty?
+      if (model.instance_methods & [:nested_set_scope, 'nested_set_scope']).present?
         reorder_children_in_tree(model)
+      elsif model.respond_to? :ancestry_column
+        reorder_ancestry_tree(model)
       else
-        if model.respond_to? :ancestry_column
-          reorder_ancestry_tree(model) 
-        else
-          reorder_simple_list(model)
-        end
+        reorder_simple_list(model)
       end
       do_refresh_list if active_scaffold_config.sortable.refresh_list
     end
@@ -52,9 +50,11 @@ module ActiveScaffold::Actions
     end
     
     def reorder_simple_list(model)
+      updates = ActiveScaffold::OrmChecks.columns_hash(klass)['updated_at'] ? {updated_at: Time.now} : {}
       column_name = active_scaffold_config.sortable.column.name
       ordered_ids.each.with_index do |id, index|
-        model.where(model.primary_key => id).update_all(column_name => index + 1)
+        updates[column_name] = index + 1
+        model.where(model.primary_key => id).update_all(updates)
       end
     end
     
