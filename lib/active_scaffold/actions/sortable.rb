@@ -50,7 +50,7 @@ module ActiveScaffold::Actions
     end
     
     def reorder_simple_list(model)
-      updates = ActiveScaffold::OrmChecks.columns_hash(klass)['updated_at'] ? {updated_at: Time.now} : {}
+      updates = ActiveScaffold::OrmChecks.columns_hash(model)['updated_at'] ? {updated_at: Time.now} : {}
       column_name = active_scaffold_config.sortable.column.name
       ordered_ids.each.with_index do |id, index|
         updates[column_name] = index + 1
