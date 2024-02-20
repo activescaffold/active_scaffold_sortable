@@ -37,7 +37,7 @@ ActiveScaffold.sortable = function(element) {
     element = jQuery(element);
     form = element.closest('form.as_form').length > 0;
     if (form) content = element;
-    else content = element.find('.records:first');
+    else content = element.find(element.data('contentSelector') || '.records:first');
   }
   
   if (form) {
@@ -49,7 +49,8 @@ ActiveScaffold.sortable = function(element) {
     if (url) {
       var csrf = jQuery('meta[name=csrf-param]').attr('content') + '=' + jQuery('meta[name=csrf-token]').attr('content');
       sortable_options.update = function(event, ui) {
-        var body = jQuery(this).sortable('serialize',{key: encodeURIComponent(jQuery(this).attr('id') + '[]'), expression: new RegExp(element.data('format'))});
+        var $this = jQuery(this),
+          body = $this.sortable('serialize',{key: encodeURIComponent(($this.data('key') || $this.attr('id')) + '[]'), expression: new RegExp(element.data('format'))});
         var params = element.data('with');
         if (params) body += '&' + params;
         jQuery.post(url, body + '&' + csrf);
