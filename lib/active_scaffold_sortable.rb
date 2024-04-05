@@ -1,13 +1,12 @@
-require "active_scaffold_sortable/config/core.rb"
-require "active_scaffold_sortable/core.rb"
-require "active_scaffold_sortable/attribute_params.rb"
-require "active_scaffold_sortable/engine.rb" unless defined? ACTIVE_SCAFFOLD_SORTABLE_PLUGIN
+require "active_scaffold_sortable/engine.rb"
 
 module ActiveScaffoldSortable
   def self.root
     File.dirname(__FILE__) + "/.."
   end
+  autoload 'Core', 'active_scaffold_sortable/core.rb'
   autoload 'ViewHelpers', 'active_scaffold_sortable/view_helpers.rb'
+  autoload 'AttributeParams', 'active_scaffold_sortable/attribute_params.rb'
 end
 
 module ActiveScaffold
@@ -23,8 +22,5 @@ module ActiveScaffold
     ActiveScaffold.autoload_subdir('helpers', self, File.dirname(__FILE__))
   end
 end
-ActionView::Base.send :include, ActiveScaffoldSortable::ViewHelpers
-ActiveScaffold::Config::Core.send :prepend, ActiveScaffoldSortable::Core
-ActiveScaffold::AttributeParams.send :prepend, ActiveScaffoldSortable::AttributeParams
 ActiveScaffold.stylesheets << 'active_scaffold_sortable'
 ActiveScaffold.javascripts << 'active_scaffold_sortable'
