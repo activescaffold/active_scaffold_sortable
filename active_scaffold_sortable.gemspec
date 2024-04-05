@@ -23,6 +23,6 @@ Gem::Specification.new do |s|
 
   s.required_ruby_version = '>= 2.0'
 
-  s.add_runtime_dependency(%q<active_scaffold>, [">= 3.6.0.pre"])
+  s.add_runtime_dependency(%q<active_scaffold>, [">= 3.7.1"])
 end
 
