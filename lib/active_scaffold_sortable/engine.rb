@@ -16,18 +16,5 @@ module ActiveScaffoldSortable
       ActiveScaffold::Config::Core.send :prepend, ActiveScaffoldSortable::Core
       ActiveScaffold::AttributeParams.send :prepend, ActiveScaffoldSortable::AttributeParams
     end
-
-    initializer "active_scaffold_sortable.assets" do
-      ActiveSupport.on_load :active_scaffold do
-        self.stylesheets << 'active_scaffold_sortable'
-        self.javascripts << 'active_scaffold_sortable'
-      end
-    end
-
-    initializer "active_scaffold_sortable" do
-      ActiveSupport.on_load :active_scaffold do
-        require 'autoload'
-      end
-    end
   end
 end
