@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SortableModelsController < ActionController::Base
   active_scaffold :model do |config|
     config.actions.exclude :search

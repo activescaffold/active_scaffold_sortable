@@ -223,8 +223,8 @@ Enabling `:sortable` also:
 - disables pagination so all draggable records are present in one list;
 - orders the list ascending by the sortable column;
 - disables sorting by other columns;
-- hides the sortable column from normal action columns, while retaining it as
-  a hidden field in subforms.
+- hides the sortable column from normal action columns and configures its form
+  UI as hidden so subforms can carry positions without displaying the column.
 
 Because the browser submits only rendered rows, filters and nested views update
 only the matching subset. Non-rendered records retain their stored positions,

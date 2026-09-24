@@ -1,40 +1,51 @@
-# encoding: utf-8
-ENV["RAILS_ENV"] = "test"
+# frozen_string_literal: true
 
-require 'minitest/autorun'
-# You can use "rake test AR_VERSION=2.0.5" to test against 2.0.5, for example.
-# The default is to use the latest installed ActiveRecord.
-if ENV["AR_VERSION"]
-  gem 'activerecord', "#{ENV["AR_VERSION"]}"
-  gem 'actionpack', "#{ENV["AR_VERSION"]}"
-  gem 'activesupport', "#{ENV["AR_VERSION"]}"
-end
-require 'rubygems'
-require 'active_record'
-require 'action_controller'
-require 'action_view/test_case'
-require 'action_mailer'
-require 'active_support'
-require 'rails'
-require 'active_scaffold'
-require 'active_scaffold_sortable'
+ENV["RAILS_ENV"] ||= "test"
+ENV["DATABASE_URL"] ||= "sqlite3::memory:"
 
-require 'mocha/setup'
+require "bundler/setup"
+require "minitest/autorun"
+require "rails"
+require "action_controller/railtie"
+require "active_record/railtie"
+require "active_scaffold"
+require "active_scaffold_sortable"
 
-#ActiveSupport::Dependencies.load_paths = %w(test/models test/controllers lib ../active_scaffold/lib).map {|dir| File.dirname(__FILE__) + "/../#{dir}"}
-#$:.unshift *ActiveSupport::Dependencies.load_paths
-
-require File.join(File.dirname(__FILE__), '../../active_scaffold/lib/active_scaffold')
-require 'sortable'
-
-ActionController::Routing::Routes.draw do |map|
-  map.root :controller => 'home'
-  map.resources :sortable_models, :active_scaffold => true
-  map.resources :auto_models, :active_scaffold => true
-  map.resources :models, :active_scaffold => true
+class TestApplication < Rails::Application
+  config.root = File.expand_path("dummy", __dir__)
+  config.eager_load = false
+  config.logger = Logger.new(nil)
+  config.secret_key_base = "active-scaffold-sortable-test-secret"
+  config.hosts.clear
 end
 
-ActiveRecord::Base.establish_connection :adapter => "sqlite3", :database => ":memory:"
-silence_stream(STDOUT) do
-  load(File.dirname(__FILE__) + "/schema.rb")
+TestApplication.initialize!
+
+Rails.application.routes.draw do
+  concern :active_scaffold, ActiveScaffold::Routing::Basic.new(association: true)
+  resources :sortable_models, concerns: :active_scaffold
+  resources :auto_models, concerns: :active_scaffold
+  resources :ancestry_models, concerns: :active_scaffold
+  resources :nested_set_models, concerns: :active_scaffold
+  resources :models, concerns: :active_scaffold
+end
+
+ActiveRecord::Base.establish_connection(adapter: "sqlite3", database: ":memory:")
+ActiveRecord::Schema.verbose = false
+load File.expand_path("schema.rb", __dir__)
+
+require_relative "models/model"
+Dir[File.expand_path("models/*.rb", __dir__)].sort.each { |file| require file }
+Dir[File.expand_path("controllers/*.rb", __dir__)].sort.each { |file| require file }
+
+class ActionController::TestCase
+  setup do
+    @routes = Rails.application.routes
+  end
+end
+
+class ActionDispatch::IntegrationTest
+  setup do
+    @routes = Rails.application.routes
+  end
 end

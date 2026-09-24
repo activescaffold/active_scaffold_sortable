@@ -17,13 +17,13 @@ module ActiveScaffold::Config
     cattr_accessor :plugin_directory
     @@plugin_directory = File.expand_path(__FILE__).match(%{(^.*)/lib/active_scaffold/config/sortable.rb})[1]
 
-    cattr_accessor :add_handle_column
+    cattr_accessor :add_handle_column, instance_accessor: false
     @@add_handle_column = false
 
-    cattr_accessor :options
+    cattr_accessor :options, instance_accessor: false
     @@options = {}
 
-    cattr_accessor :refresh_list
+    cattr_accessor :refresh_list, instance_accessor: false
 
     self.crud_type = :update
     
@@ -36,7 +36,7 @@ module ActiveScaffold::Config
         @column.form_ui = :hidden
         @column.css_class = 'sortable-handle'
         @column.label = ''
-        @column.weight = -2**(0.size * 8 -2)
+        @column.weight = -(2**(0.size * 8 - 2))
       end
       @column
     end
@@ -50,7 +50,7 @@ module ActiveScaffold::Config
         raise(ArgumentError, "Unknown handle column position: #{where}") unless [:first, :last].include?(where)
         @options[:handle] = 'td.sortable-handle'
         define_handle_column
-        @column.weight = 2**(0.size * 8 -2) -1 unless where == :first
+        @column.weight = (2**(0.size * 8 - 2)) - 1 unless where == :first
         if @core.actions.include? :list
           if where == :first
             @core.list.columns = [:active_scaffold_sortable] + @core.list.columns.to_a unless @core.list.columns.include? :active_scaffold_sortable

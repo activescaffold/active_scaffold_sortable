@@ -1,5 +1,12 @@
-require 'test_helper.rb'
+# frozen_string_literal: true
 
-class RouterTest < ActionController::TestCase
-  should_route :post, "/sortable_models/reorder", :controller => :sortable_models, :action => :reorder
+require "test_helper"
+
+class RouterTest < ActionDispatch::IntegrationTest
+  test "routes reorder requests" do
+    assert_routing(
+      { method: :post, path: "/sortable_models/reorder" },
+      { controller: "sortable_models", action: "reorder" }
+    )
+  end
 end
