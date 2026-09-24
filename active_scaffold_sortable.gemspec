@@ -14,9 +14,9 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/activescaffold/active_scaffold_sortable}
   s.extra_rdoc_files = [
     "LICENSE.txt",
-    "README.textile"
+    "README.md"
   ]
-  s.files = Dir["{app,frontends,lib}/**/*"] + %w[LICENSE.txt README.textile]
+  s.files = Dir["{app,frontends,lib}/**/*"] + %w[LICENSE.txt README.md]
   s.test_files = Dir["test/**/*"]
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
@@ -25,4 +25,3 @@ Gem::Specification.new do |s|
 
   s.add_runtime_dependency(%q<active_scaffold>, ['>= 4.0.0.rc1'])
 end
-
