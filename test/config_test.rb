@@ -36,14 +36,14 @@ class ConfigTest < Minitest::Test
     automatic = AutoModelsController.active_scaffold_config
     manual = SortableModelsController.active_scaffold_config
 
-    assert_equal ['"models"."id" ASC'], regular.list.sorting.clause
+    assert_equal [{id: "ASC"}], regular.list.sorting.clause
     assert regular.columns[:name].sortable?
     assert regular.columns[:position].sortable?
 
-    assert_equal ['"models"."position" ASC'], automatic.list.sorting.clause
+    assert_equal [{position: "ASC"}], automatic.list.sorting.clause
     refute automatic.columns[:name].sortable?
 
-    assert_equal ['"models"."name" ASC'], manual.list.sorting.clause
+    assert_equal [{name: "ASC"}], manual.list.sorting.clause
     refute manual.columns[:position].sortable?
   end
 

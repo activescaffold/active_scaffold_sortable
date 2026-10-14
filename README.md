@@ -16,7 +16,7 @@ It supports:
 ## Requirements
 
 - Ruby 2.0 or newer
-- Active Scaffold 4.0.0.rc1 or newer
+- Active Scaffold 4.4.0 or newer
 - a Rails version supported by the selected Active Scaffold version
 - jQuery UI Sortable on pages that use this plugin
 
@@ -215,6 +215,20 @@ ActiveScaffold::Config::Sortable.add_handle_column = :first
 ActiveScaffold::Config::Sortable.refresh_list = true
 ActiveScaffold::Config::Sortable.options = { handle: ".my-drag-handle" }
 ```
+
+### UI adapter support
+
+Sortable list and association-subform wrappers expose the
+`sortable_container` UI element. UI framework adapters can add or replace its
+HTML attributes without overriding either partial:
+
+```ruby
+ActiveScaffold.add_element_attributes :sortable_container,
+                                      class: "overflow-auto"
+```
+
+The plugin keeps the `sortable-container` class and `data-*` attributes used
+by its JavaScript and merges them with attributes supplied by the adapter.
 
 ## Effects on the Active Scaffold list
 

@@ -32,6 +32,17 @@ class AutoModelsControllerTest < ActionController::TestCase
     assert_select ".records tr.record.sortable-handle", count: 2
   end
 
+  test "applies UI adapter attributes to the sortable container" do
+    ActiveScaffold.add_element_attributes(:sortable_container, class: "adapter-container")
+
+    get :index
+
+    assert_response :success
+    assert_select ".sortable-container.adapter-container"
+  ensure
+    ActiveScaffold.set_element(:sortable_container, tag: :div)
+  end
+
   test "keeps sorting active after creating a record" do
     post :create, params: { record: { name: "third", position: 3 } }, xhr: true
 
