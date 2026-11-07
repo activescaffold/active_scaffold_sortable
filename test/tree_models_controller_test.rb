@@ -36,6 +36,20 @@ class TreeModelsControllerTest < ActionController::TestCase
     assert_equal [parent.id, 1], [second.reload.parent_id, second.position]
   end
 
+  test "targets the tabbed subform list from its sortable container" do
+    @controller = AncestryModelsController.new
+    parent = AncestryModel.create!(name: "parent", position: 1)
+    AncestryModel.create!(name: "first tab", position: 1, parent: parent)
+
+    get :edit, params: {id: parent.id}
+
+    assert_response :success
+    list_id = "as_ancestry_models-#{parent.id}-children-first-tab-subform-list"
+    assert_select ".sortable-container[data-tag='##{list_id} > .sub-form-record']" do
+      assert_select "##{list_id}"
+    end
+  end
+
   test "auto-enables and reorders nested-set API models" do
     @controller = NestedSetModelsController.new
     first = NestedSetModel.create!(name: "first", position: 1)
