@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    active_scaffold_sortable (3.7.1)
+    active_scaffold_sortable (3.7.2)
       active_scaffold (>= 4.4.0)
 
 GEM

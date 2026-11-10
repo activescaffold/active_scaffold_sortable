@@ -1,6 +1,6 @@
 module ActiveScaffoldSortable
   module AttributeParams
-    def update_column_from_params(parent_record, column, attribute, avoid_changes = false)
+    def update_column_from_params(parent_record, column, ...)
       super.tap do |value|
         if column.association.try(:collection?)
           config = active_scaffold_config_for(column.association.klass)
