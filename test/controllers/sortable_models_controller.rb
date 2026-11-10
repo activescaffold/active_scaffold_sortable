@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class SortableModelsController < ActionController::Base
+class SortableModelsController < ApplicationController
   active_scaffold :model do |config|
     config.actions.exclude :search
     config.actions << :sortable

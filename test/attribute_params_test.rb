@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "test_helper"
+require 'test_helper'
 
 class AttributeParamsTest < Minitest::Test
   Record = Struct.new(:position)
@@ -15,14 +15,10 @@ class AttributeParamsTest < Minitest::Test
   FormColumn = Struct.new(:association)
 
   class Parent
-    attr_reader :target
+    attr_accessor :target
 
     def association(_name)
       self
-    end
-
-    def target=(records)
-      @target = records
     end
   end
 

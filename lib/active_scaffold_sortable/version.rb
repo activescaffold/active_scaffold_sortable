@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ActiveScaffoldSortable
   module Version
     MAJOR = 3

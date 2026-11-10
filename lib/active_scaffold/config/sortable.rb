@@ -1,33 +1,40 @@
+# frozen_string_literal: true
+
 module ActiveScaffold::Config
   class Sortable < Base
     def initialize(core_config)
       super
       @options = self.class.options.clone
-      
-      self.column = core_config.model.new.position_column unless (@core.model.instance_methods & [:acts_as_list_class, 'acts_as_list_class']).empty?
-      self.column = core_config.model.new.left_column_name unless (@core.model.instance_methods & [:nested_set_scope, 'nested_set_scope']).empty?
-      if self.column.nil?
-        raise "ActiveScaffoldSortable: Missing sortable attribute '#{core_config.model.new.position_column}' in model '#{core_config.model.to_s}'" if @core.model.instance_methods.include? 'acts_as_list_class'
-        raise "ActiveScaffoldSortable: Missing sortable attribute '#{core_config.model.new.left_column_name}' in model '#{core_config.model.to_s}'" if @core.model.instance_methods.include? 'nested_set_scope'
+
+      model = core_config.model
+      self.column = model.new.position_column if model.method_defined?(:acts_as_list_class)
+      self.column = model.new.left_column_name if model.method_defined?(:nested_set_scope)
+      if column.nil? && model.method_defined?(:acts_as_list_class)
+        missing_column = model.new.position_column
+        raise "ActiveScaffoldSortable: Missing sortable attribute '#{missing_column}' in model '#{model}'"
+      end
+      if column.nil? && model.method_defined?(:nested_set_scope)
+        missing_column = model.new.left_column_name
+        raise "ActiveScaffoldSortable: Missing sortable attribute '#{missing_column}' in model '#{model}'"
       end
       self.add_handle_column = self.class.add_handle_column
       self.refresh_list = self.class.refresh_list
     end
 
-    cattr_accessor :plugin_directory
-    @@plugin_directory = File.expand_path(__FILE__).match(%{(^.*)/lib/active_scaffold/config/sortable.rb})[1]
+    cattr_accessor :plugin_directory,
+                   instance_accessor: false,
+                   default: File.expand_path(__FILE__).match(%r{(^.*)/lib/active_scaffold/config/sortable.rb})[1]
 
-    cattr_accessor :add_handle_column, instance_accessor: false
-    @@add_handle_column = false
+    cattr_accessor :add_handle_column, instance_accessor: false, default: false
 
-    cattr_accessor :options, instance_accessor: false
-    @@options = {}
+    cattr_accessor :options, instance_accessor: false, default: {}
 
-    cattr_accessor :refresh_list, instance_accessor: false
+    cattr_accessor :refresh_list, instance_accessor: false, default: nil
 
     self.crud_type = :update
-    
-    attr_reader :column
+
+    attr_reader :column, :add_handle_column
+
     def column=(column_name)
       @column = @core.columns[column_name]
       if @column.nil?
@@ -36,36 +43,38 @@ module ActiveScaffold::Config
         @column.form_ui = :hidden
         @column.css_class = 'sortable-handle'
         @column.label = ''
-        @column.weight = -(2**(0.size * 8 - 2))
+        @column.weight = -(2**((0.size * 8) - 2))
       end
-      @column
     end
-    
-    attr_accessor :options
-    attr_accessor :refresh_list
-    
-    attr_reader :add_handle_column
+
+    attr_accessor :options, :refresh_list
+
     def add_handle_column=(where)
       if where
-        raise(ArgumentError, "Unknown handle column position: #{where}") unless [:first, :last].include?(where)
+        raise(ArgumentError, "Unknown handle column position: #{where}") unless %i[first last].include?(where)
+
         @options[:handle] = 'td.sortable-handle'
         define_handle_column
-        @column.weight = (2**(0.size * 8 - 2)) - 1 unless where == :first
-        if @core.actions.include? :list
-          if where == :first
-            @core.list.columns = [:active_scaffold_sortable] + @core.list.columns.to_a unless @core.list.columns.include? :active_scaffold_sortable
-          else
-            @core.list.columns.add :active_scaffold_sortable 
-          end
-        end
+        @column.weight = (2**((0.size * 8) - 2)) - 1 unless where == :first
+        add_handle_to_list(where) if @core.actions.include? :list
       else
         @options.delete(:handle)
       end
       @add_handle_column = where
     end
-    
+
     protected
-    
+
+    def add_handle_to_list(where)
+      if where == :first
+        unless @core.list.columns.include? :active_scaffold_sortable
+          @core.list.columns = [:active_scaffold_sortable] + @core.list.columns.to_a
+        end
+      else
+        @core.list.columns.add :active_scaffold_sortable
+      end
+    end
+
     def define_handle_column
       @core.columns.add :active_scaffold_sortable
       @core.columns.exclude :active_scaffold_sortable

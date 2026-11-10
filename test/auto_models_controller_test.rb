@@ -1,19 +1,19 @@
 # frozen_string_literal: true
 
-require "test_helper"
+require 'test_helper'
 
 class AutoModelsControllerTest < ActionController::TestCase
   tests AutoModelsController
 
   setup do
     AutoModel.delete_all
-    @first = AutoModel.create!(name: "first", position: 1)
-    @second = AutoModel.create!(name: "second", position: 2)
+    @first = AutoModel.create!(name: 'first', position: 1)
+    @second = AutoModel.create!(name: 'second', position: 2)
   end
 
-  test "reorders records and renders the reorder response" do
+  test 'reorders records and renders the reorder response' do
     post :reorder,
-         params: { "as_auto_models-tbody" => [@second.id, @first.id] },
+         params: {'as_auto_models-tbody' => [@second.id, @first.id]},
          xhr: true
 
     assert_response :success
@@ -23,39 +23,39 @@ class AutoModelsControllerTest < ActionController::TestCase
     assert_includes response.body, "ActiveScaffold.stripe('as_auto_models-tbody');"
   end
 
-  test "renders sortable metadata and a row drag handle" do
+  test 'renders sortable metadata and a row drag handle' do
     get :index
 
     assert_response :success
     assert_select ".sortable-container[data-reorder-url='/auto_models/reorder']"
     assert_select ".sortable-container[data-column='position']"
-    assert_select ".records tr.record.sortable-handle", count: 2
+    assert_select '.records tr.record.sortable-handle', count: 2
   end
 
-  test "applies UI adapter attributes to the sortable container" do
-    ActiveScaffold.add_element_attributes(:sortable_container, class: "adapter-container")
+  test 'applies UI adapter attributes to the sortable container' do
+    ActiveScaffold.add_element_attributes(:sortable_container, class: 'adapter-container')
 
     get :index
 
     assert_response :success
-    assert_select ".sortable-container.adapter-container"
+    assert_select '.sortable-container.adapter-container'
   ensure
     ActiveScaffold.set_element(:sortable_container, tag: :div)
   end
 
-  test "keeps sorting active after creating a record" do
-    post :create, params: { record: { name: "third", position: 3 } }, xhr: true
+  test 'keeps sorting active after creating a record' do
+    post :create, params: {record: {name: 'third', position: 3}}, xhr: true
 
     assert_response :success
     assert_equal 3, AutoModel.count
     assert_includes response.body, "ActiveScaffold.sortable('as_auto_models-tbody');"
   end
 
-  test "keeps sorting active after updating a record" do
-    put :update, params: { id: @first.id, record: { name: "updated" } }, xhr: true
+  test 'keeps sorting active after updating a record' do
+    put :update, params: {id: @first.id, record: {name: 'updated'}}, xhr: true
 
     assert_response :success
-    assert_equal "updated", @first.reload.name
+    assert_equal 'updated', @first.reload.name
     assert_includes response.body, "ActiveScaffold.sortable('as_auto_models-tbody');"
   end
 end

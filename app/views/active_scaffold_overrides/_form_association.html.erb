@@ -1,6 +1,12 @@
 <% config = active_scaffold_config_for(column.association.klass) %>
 <% if config.actions.include? :sortable %>
-<%= as_element :sortable_container, render(:super), class: 'sortable-container', data: sort_params(config).merge(tag: "##{sub_form_list_id(association: column.name, id: parent_record.try(:id) || generated_id(parent_record) || 99999999999, tab_id: local_assigns[:tab_id])} > .sub-form-record") %>
+<% list_id = sub_form_list_id(
+  association: column.name,
+  id: parent_record&.id || generated_id(parent_record) || 99_999_999_999,
+  tab_id: local_assigns[:tab_id]
+) %>
+<%= as_element :sortable_container, render(:super), class: 'sortable-container',
+               data: sort_params(config).merge(tag: "##{list_id} > .sub-form-record") %>
 <% else %>
 <%= render :super %>
 <% end %>

@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
-class NestedSetModelsController < ActionController::Base
+class NestedSetModelsController < ApplicationController
   active_scaffold :nested_set_model
 end

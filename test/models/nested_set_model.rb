@@ -5,11 +5,10 @@
 class NestedSetModel < Model
   scope :roots, -> { where(parent_id: nil) }
 
-  def nested_set_scope
-  end
+  def nested_set_scope; end
 
   def left_column_name
-    "position"
+    'position'
   end
 
   def self_and_siblings
@@ -33,7 +32,7 @@ class NestedSetModel < Model
     return unless sibling
 
     old_position = position
-    update_column(:position, sibling.position)
-    sibling.update_column(:position, old_position)
+    update!(position: sibling.position)
+    sibling.update!(position: old_position)
   end
 end

@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
-class ModelsController < ActionController::Base
+class ModelsController < ApplicationController
   active_scaffold
 end

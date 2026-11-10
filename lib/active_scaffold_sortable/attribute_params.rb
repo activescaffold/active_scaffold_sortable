@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ActiveScaffoldSortable
   module AttributeParams
     def update_column_from_params(parent_record, column, ...)

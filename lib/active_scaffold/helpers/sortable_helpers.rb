@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ActiveScaffold::Helpers
   module SortableHelpers
     def list_row_class(record)

@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
-class AutoModelsController < ActionController::Base
+class AutoModelsController < ApplicationController
   active_scaffold :auto_model
 end

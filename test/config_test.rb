@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require "test_helper"
+require 'test_helper'
 
-class ConfigTest < Minitest::Test
+class ConfigTest < ActiveSupport::TestCase
   def test_sortable_activation
-    refute ModelsController.active_scaffold_config.actions.include?(:sortable)
+    assert_not ModelsController.active_scaffold_config.actions.include?(:sortable)
     assert AutoModelsController.active_scaffold_config.actions.include?(:sortable)
     assert SortableModelsController.active_scaffold_config.actions.include?(:sortable)
   end
@@ -18,7 +18,7 @@ class ConfigTest < Minitest::Test
     config = AutoModelsController.active_scaffold_config
 
     %i[list update create show search subform].each do |action|
-      refute config.public_send(action).columns.include?(:position), action
+      assert_not config.public_send(action).columns.include?(:position), action
     end
     assert_equal :hidden, config.columns[:position].form_ui
   end
@@ -27,7 +27,7 @@ class ConfigTest < Minitest::Test
     config = SortableModelsController.active_scaffold_config
 
     %i[list update create show].each do |action|
-      refute config.public_send(action).columns.include?(:name), action
+      assert_not config.public_send(action).columns.include?(:name), action
     end
   end
 
@@ -36,30 +36,30 @@ class ConfigTest < Minitest::Test
     automatic = AutoModelsController.active_scaffold_config
     manual = SortableModelsController.active_scaffold_config
 
-    assert_equal [{id: "ASC"}], regular.list.sorting.clause
+    assert_equal [{id: 'ASC'}], regular.list.sorting.clause
     assert regular.columns[:name].sortable?
     assert regular.columns[:position].sortable?
 
-    assert_equal [{position: "ASC"}], automatic.list.sorting.clause
-    refute automatic.columns[:name].sortable?
+    assert_equal [{position: 'ASC'}], automatic.list.sorting.clause
+    assert_not automatic.columns[:name].sortable?
 
-    assert_equal [{name: "ASC"}], manual.list.sorting.clause
-    refute manual.columns[:position].sortable?
+    assert_equal [{name: 'ASC'}], manual.list.sorting.clause
+    assert_not manual.columns[:position].sortable?
   end
 
   def test_sortable_lists_disable_pagination
     assert ModelsController.active_scaffold_config.list.pagination
-    refute AutoModelsController.active_scaffold_config.list.pagination
-    refute SortableModelsController.active_scaffold_config.list.pagination
+    assert_not AutoModelsController.active_scaffold_config.list.pagination
+    assert_not SortableModelsController.active_scaffold_config.list.pagination
   end
 
   def test_sortable_controllers_register_the_plugin_view_path
     plugin_path = File.join(
       ActiveScaffold::Config::Sortable.plugin_directory,
-      "frontends/default"
+      'frontends/default'
     )
 
-    refute ModelsController.view_paths.map(&:to_s).include?(plugin_path)
+    assert_not ModelsController.view_paths.map(&:to_s).include?(plugin_path)
     assert AutoModelsController.view_paths.map(&:to_s).include?(plugin_path)
     assert SortableModelsController.view_paths.map(&:to_s).include?(plugin_path)
   end

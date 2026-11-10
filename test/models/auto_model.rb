@@ -1,10 +1,9 @@
 # frozen_string_literal: true
 
 class AutoModel < Model
-  def acts_as_list_class
-  end
+  def acts_as_list_class; end
 
   def position_column
-    "position"
+    'position'
   end
 end
