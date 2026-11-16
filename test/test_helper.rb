@@ -1,5 +1,10 @@
 # frozen_string_literal: true
 
+if ENV['COVERAGE'] == 'true'
+  require 'simplecov'
+  SimpleCov.start
+end
+
 ENV['RAILS_ENV'] ||= 'test'
 ENV['DATABASE_URL'] ||= 'sqlite3::memory:'
 
