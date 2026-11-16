@@ -32,6 +32,7 @@ Rails.application.routes.draw do
   resources :auto_models, concerns: :active_scaffold
   resources :ancestry_models, concerns: :active_scaffold
   resources :nested_set_models, concerns: :active_scaffold
+  resources :handle_models, concerns: :active_scaffold
   resources :models, concerns: :active_scaffold
 end
 

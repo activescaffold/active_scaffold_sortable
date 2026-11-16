@@ -81,4 +81,20 @@ class TreeModelsControllerTest < ActionController::TestCase
     assert_equal [parent.id, 2], [first.reload.parent_id, first.position]
     assert_equal [parent.id, 1], [second.reload.parent_id, second.position]
   end
+
+  test 'reorders a subset of nested-set siblings' do
+    @controller = NestedSetModelsController.new
+    parent = NestedSetModel.create!(name: 'parent', position: 1)
+    first = NestedSetModel.create!(name: 'first', position: 1, parent_id: parent.id)
+    second = NestedSetModel.create!(name: 'second', position: 2, parent_id: parent.id)
+    third = NestedSetModel.create!(name: 'third', position: 3, parent_id: parent.id)
+
+    post :reorder,
+         params: {'as_nested_set_models-tbody' => [second.id, first.id]},
+         xhr: true
+
+    assert_response :success
+    assert_equal [second.id, first.id, third.id],
+                 NestedSetModel.where(parent_id: parent.id).order(:position).pluck(:id)
+  end
 end
