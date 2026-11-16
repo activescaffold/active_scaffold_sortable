@@ -1,5 +1,12 @@
 # Drag-and-drop sorting for Active Scaffold
 
+[![Build status](https://github.com/activescaffold/active_scaffold_sortable/actions/workflows/ci.yml/badge.svg)](https://github.com/activescaffold/active_scaffold_sortable/actions/workflows/ci.yml)
+[![Maintainability](https://qlty.sh/gh/activescaffold/projects/active_scaffold_sortable/maintainability.svg)](https://qlty.sh/gh/activescaffold/projects/active_scaffold_sortable)
+[![Code Coverage](https://qlty.sh/gh/activescaffold/projects/active_scaffold_sortable/coverage.svg)](https://qlty.sh/gh/activescaffold/projects/active_scaffold_sortable)
+[![Gem Version](https://badge.fury.io/rb/active_scaffold_sortable.svg)](https://badge.fury.io/rb/active_scaffold_sortable)
+[![Inline docs](https://inch-ci.org/github/activescaffold/active_scaffold_sortable.svg?branch=master)](https://inch-ci.org/github/activescaffold/active_scaffold_sortable)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+
 `active_scaffold_sortable` adds AJAX drag-and-drop ordering to Active Scaffold
 lists and association subforms.
 
