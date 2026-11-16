@@ -19,6 +19,7 @@ require 'active_scaffold_sortable'
 class TestApplication < Rails::Application
   config.root = File.expand_path('dummy', __dir__)
   config.eager_load = false
+  config.cache_store = :memory_store
   config.logger = Logger.new(nil)
   config.secret_key_base = 'active-scaffold-sortable-test-secret'
   config.hosts.clear

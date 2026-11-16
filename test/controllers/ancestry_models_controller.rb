@@ -7,6 +7,7 @@ class AncestryModelsController < ApplicationController
     config.subform.columns = [:name]
     config.update.columns.add_subgroup 'Children' do |group|
       group.add :children
+      group.add :ordinary_children
       group.tabbed_by = :name
     end
   end

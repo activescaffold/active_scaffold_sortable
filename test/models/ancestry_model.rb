@@ -3,6 +3,7 @@
 class AncestryModel < Model
   belongs_to :parent, class_name: 'AncestryModel', optional: true
   has_many :children, class_name: 'AncestryModel', foreign_key: :parent_id
+  has_many :ordinary_children, class_name: 'Model', foreign_key: :parent_id
 
   scope :roots, -> { where(parent_id: nil) }
 
