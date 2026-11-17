@@ -16,6 +16,8 @@ pkg
 
 # test application generated files
 **/tmp/
+/test/dummy/app/assets/stylesheets/active_scaffold/deps.scss
+/test/dummy/app/assets/stylesheets/active_scaffold/jquery-ui/theme.css
 
 # Have editor/IDE/OS specific files you need to ignore? Consider using a global gitignore: 
 #

@@ -5,6 +5,5 @@ class HandleModelsController < ApplicationController
     config.actions << :sortable
     config.sortable.column = :position
     config.sortable.add_handle_column = :first
-    config.list.empty_field_text = "\u00A0"
   end
 end
